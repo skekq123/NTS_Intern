@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.nts</groupId>
-	<artifactId>pjt3</artifactId>
-	<name>2019_2nd_intern_Pjt3</name>
+	<artifactId>reservation</artifactId>
+	<name>2019_2nd_intern_reservation</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
