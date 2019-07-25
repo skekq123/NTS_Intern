@@ -1,6 +1,6 @@
 package com.nts.reservation.category.dao;
 
-import static com.nts.reservation.category.dao.CategoryDaoSqls.SELECT_ALL;
+import com.nts.reservation.category.dao.CategoryDaoSqls;
 
 import java.util.List;
 
@@ -23,6 +23,6 @@ public class CategoryDao {
 	}
 
 	public List<Category> selectAll() {
-		return jdbc.query(SELECT_ALL, rowMapper);
+		return jdbc.query(CategoryDaoSqls.SELECT_ALL, rowMapper);
 	}
 }

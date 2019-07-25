@@ -1,9 +1,6 @@
 package com.nts.reservation.product.dao;
 
-import static com.nts.reservation.product.dao.ProductDaoSqls.SELECT_PRODUCT_COUNT;
-import static com.nts.reservation.product.dao.ProductDaoSqls.SELECT_PRODUCT_COUNT_BY_CATEGORY;
-import static com.nts.reservation.product.dao.ProductDaoSqls.SELECT_PRODUCT_PAGE;
-import static com.nts.reservation.product.dao.ProductDaoSqls.SELECT_PRODUCT_PAGE_BY_CATEGORY;
+import com.nts.reservation.product.dao.ProductDaoSqls;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,27 +23,27 @@ public class ProductDao {
 	}
 
 	public List<Product> selectPagingProducts(int start, int limit) {
-		Map<String, Integer> params = new HashMap<>();
+		Map<String, Integer> params = new HashMap<String, Integer>();
 		params.put("start", start);
 		params.put("limit", limit);
-		return jdbc.query(SELECT_PRODUCT_PAGE, rowMapper, params);
+		return jdbc.query(ProductDaoSqls.SELECT_PRODUCT_PAGE, rowMapper, params);
 	}
 
 	public List<Product> selectPagingProductsByCategory(int categoryId, int start, int limit) {
-		Map<String, Integer> params = new HashMap<>();
+		Map<String, Integer> params = new HashMap<String, Integer>();
 		params.put("categoryId", categoryId);
 		params.put("start", start);
 		params.put("limit", limit);
-		return jdbc.query(SELECT_PRODUCT_PAGE_BY_CATEGORY, rowMapper, params);
+		return jdbc.query(ProductDaoSqls.SELECT_PRODUCT_PAGE_BY_CATEGORY, rowMapper, params);
 	}
 
 	public int selectCount() {
-		return jdbc.queryForObject(SELECT_PRODUCT_COUNT, Integer.class);
+		return jdbc.queryForObject(ProductDaoSqls.SELECT_PRODUCT_COUNT, Integer.class);
 	}
 
 	public int selectCountByCategory(int categoryId) {
-		Map<String, Integer> params = new HashMap<>();
+		Map<String, Integer> params = new HashMap<String, Integer>();
 		params.put("categoryId", categoryId);
-		return jdbc.queryForObject(SELECT_PRODUCT_COUNT_BY_CATEGORY, Integer.class, params);
+		return jdbc.queryForObject(ProductDaoSqls.SELECT_PRODUCT_COUNT_BY_CATEGORY, Integer.class, params);
 	}
 }
