@@ -1,8 +1,10 @@
 package com.nts.reservation.category.service;
 
-import com.nts.reservation.category.dto.CategoryResponse;
+import java.util.List;
+
+import com.nts.reservation.category.dto.Category;
 
 public interface CategoryService {
-	CategoryResponse getCategories();
+	List<Category> getCategories();
 }
 	
