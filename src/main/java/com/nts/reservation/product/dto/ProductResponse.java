@@ -9,5 +9,5 @@ import lombok.Setter;
 @Setter
 public class ProductResponse {
 	private List<Product> items;
-	private int count;
+	private int totalCount;
 }

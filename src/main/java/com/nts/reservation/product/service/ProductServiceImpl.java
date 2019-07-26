@@ -12,24 +12,23 @@ public class ProductServiceImpl implements ProductService {
 	private ProductDao productDao;
 
 	@Override
-	public ProductResponse getProducts(int start, int count) {
+	public ProductResponse getProducts(int start, int totalCount) {
 		ProductResponse productResponse = new ProductResponse();
 
-		productResponse.setItems(productDao.selectPagingProducts(start, count));
-		productResponse.setCount(productDao.selectCount());
+		productResponse.setItems(productDao.selectPagingProducts(start, totalCount));
+		productResponse.setTotalCount(productDao.selectCount());
 		return productResponse;
 	}
 
 	@Override
-	public ProductResponse getProducts(int categoryId, int start, int count) {
-		System.out.println("Service Product()");
+	public ProductResponse getProducts(int categoryId, int start, int totalCount) {
 		ProductResponse productResponse = new ProductResponse();
 
 		if (isTotalCategory(categoryId)) {
-			productResponse = getProducts(start, count);
+			productResponse = getProducts(start, totalCount);
 		} else {
-			productResponse.setItems(productDao.selectPagingProductsByCategory(categoryId, start, count));
-			productResponse.setCount(productDao.selectCountByCategory(categoryId));
+			productResponse.setItems(productDao.selectPagingProductsByCategory(categoryId, start, totalCount));
+			productResponse.setTotalCount(productDao.selectCountByCategory(categoryId));
 		}
 		return productResponse;
 	}

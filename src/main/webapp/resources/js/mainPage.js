@@ -1,7 +1,7 @@
 let currentStart = 0;
 function loadProductsCallback(responseData) {
     currentStart += 4;
-    let totalCount = responseData.count;
+    let totalCount = responseData.totalCount;
     let items = responseData.items;
     let template = document.querySelector('#itemList').innerHTML;
     let containers = document.querySelectorAll('.lst_event_box');
