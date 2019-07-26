@@ -1,38 +1,32 @@
 var currentStart = 0;
 function loadProductsCallback(responseData) {
     currentStart += 4;
-    alert(1);
-    //var totalCount = responseData.totalCount;
-    alert(2);
+    var totalCount = responseData.count;
     var items = responseData.items;
-    alert(3);
     var template = document.querySelector('#itemList').innerHTML;
-    alert(4);
     var containers = document.querySelectorAll('.lst_event_box');
     for (var i = 0, len = items.length; i < len; ++i) {
-    	alert(10);
         containers[i % 2].innerHTML += template
-                                                .replace('{productImageUrl}', items[i].imageUrl)
+                                                .replace('{imageUrl}', items[i].imageUrl)
                                                 .replace(/{description}/g, items[i].description)
                                                 .replace('{id}', items[i].id)
                                                 .replace('{placeName}', items[i].placeName)
                                                 .replace('{content}', items[i].content);
     }
-    alert(2);
     var moreViewbtn = document.querySelector('.btn');
     
-    if (currentStart >= totalCount) {
-    	alert(3);
-        moreViewbtn.style.display = 'none';
+    if (currentStart >= totalCount) { 
+        moreViewbtn.style.display = 'none'; //비활성화
     } else {
-    	alert(4);
         moreViewbtn.style.display = 'initial';
     }
-    alert(5);
     document.querySelector('.pink').innerText = totalCount + '개';
+    alert(1);
 }
+
 var currentCategory = 0;
 const currentProductUnits = 4;
+
 function setTabButton() {
 	document.querySelector('.tab_lst_min').addEventListener('click', btnEvent => {
     	var selectedTab = event.target;
