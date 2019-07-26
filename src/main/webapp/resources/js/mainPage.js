@@ -1,11 +1,11 @@
-var currentStart = 0;
+let currentStart = 0;
 function loadProductsCallback(responseData) {
     currentStart += 4;
-    var totalCount = responseData.count;
-    var items = responseData.items;
-    var template = document.querySelector('#itemList').innerHTML;
-    var containers = document.querySelectorAll('.lst_event_box');
-    for (var i = 0, len = items.length; i < len; ++i) {
+    let totalCount = responseData.count;
+    let items = responseData.items;
+    let template = document.querySelector('#itemList').innerHTML;
+    let containers = document.querySelectorAll('.lst_event_box');
+    for (let i = 0, len = items.length; i < len; ++i) {
         containers[i % 2].innerHTML += template
                                                 .replace('{imageUrl}', items[i].imageUrl)
                                                 .replace(/{description}/g, items[i].description)
@@ -13,7 +13,7 @@ function loadProductsCallback(responseData) {
                                                 .replace('{placeName}', items[i].placeName)
                                                 .replace('{content}', items[i].content);
     }
-    var moreViewbtn = document.querySelector('.btn');
+    let moreViewbtn = document.querySelector('.btn');
     
     if (currentStart >= totalCount) { 
         moreViewbtn.style.display = 'none'; //비활성화
@@ -21,20 +21,19 @@ function loadProductsCallback(responseData) {
         moreViewbtn.style.display = 'initial';
     }
     document.querySelector('.pink').innerText = totalCount + '개';
-    alert(1);
 }
 
-var currentCategory = 0;
+let currentCategory = 0;
 const currentProductUnits = 4;
 
 function setTabButton() {
 	document.querySelector('.tab_lst_min').addEventListener('click', btnEvent => {
-    	var selectedTab = event.target;
+		let selectedTab = event.target;
     	if (selectedTab.tagName === 'SPAN') {
         	selectedTab = selectedTab.parentElement;
         }
         if (selectedTab.tagName === 'A') {
-            var categoryId = selectedTab.parentElement.getAttribute('data-category');
+        	let categoryId = selectedTab.parentElement.getAttribute('data-category');
             if (categoryId != currentCategory) {
             	currentCategory = categoryId;
             	currentStart = 0;
@@ -49,7 +48,7 @@ function setTabButton() {
 }
 
 function requestAjax(callback, url) {
-	var Req = new XMLHttpRequest();
+	let Req = new XMLHttpRequest();
 	Req.callback = callback;
 	Req.addEventListener('load', evt => {
 		callback(evt.target.response)
