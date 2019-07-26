@@ -22,6 +22,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public ProductResponse getProducts(int categoryId, int start, int count) {
+		System.out.println("Service Product()");
 		ProductResponse productResponse = new ProductResponse();
 
 		if (isTotalCategory(categoryId)) {
@@ -34,11 +35,6 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	private boolean isTotalCategory(int categoryId) {
-		boolean isTotal = false;
-
-		if (categoryId == 0) {
-			isTotal = true;
-		}
-		return isTotal;
+		return categoryId == 0;
 	}
 }
