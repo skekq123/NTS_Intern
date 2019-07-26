@@ -1,10 +1,12 @@
 package com.nts.reservation.product.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.nts.reservation.product.dao.ProductDao;
 import com.nts.reservation.product.dto.ProductResponse;
 
+@Service
 public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private ProductDao productDao;
@@ -15,7 +17,6 @@ public class ProductServiceImpl implements ProductService {
 
 		productResponse.setItems(productDao.selectPagingProducts(start, count));
 		productResponse.setCount(productDao.selectCount());
-
 		return productResponse;
 	}
 
