@@ -17,7 +17,7 @@ function loadProductsCallback(responseData) {
     let moreViewbtn = document.querySelector('.btn');
     
     if (currentStart >= totalCount) { 
-        moreViewbtn.style.display = 'none'; //비활성화
+        moreViewbtn.style.display = 'none'; // 비활성화
     } else {
         moreViewbtn.style.display = 'initial';
     }
@@ -41,7 +41,7 @@ function setTabButton() {
             	document.querySelectorAll('a.anchor').forEach(element => element.classList.remove('active'));
             	selectedTab.classList.add('active');
             	document.querySelectorAll('.lst_event_box').forEach(element => element.innerHTML = '');
-            	requestAjax(loadProductsCallback, mapProductParameters(currentCategory, currentStart, currentProductUnits));
+            	requestAjax(loadProductsCallback, makeProductApiUrl(currentCategory, currentStart, currentProductUnits));
             }
         }
 	});
@@ -58,15 +58,15 @@ function requestAjax(callback, url) {
 	Req.responseType = 'json';
 	Req.send();
 }
-function mapProductParameters(categoryId, start) {
+function makeProductApiUrl(categoryId, start) {
 	return 'product?categoryId=' + categoryId + '&start=' + start;
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-	requestAjax(loadProductsCallback, mapProductParameters(0, 0));
+	requestAjax(loadProductsCallback, makeProductApiUrl(0, 0));
 	setTabButton();
 	
 	document.querySelector('.btn').addEventListener('click', () => {
-		requestAjax(loadProductsCallback, mapProductParameters(currentCategory, currentStart, currentProductUnits))
+		requestAjax(loadProductsCallback, makeProductApiUrl(currentCategory, currentStart, currentProductUnits))
 	});
 });
