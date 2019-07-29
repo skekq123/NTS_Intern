@@ -10,17 +10,18 @@ import com.nts.reservation.product.dto.ProductResponse;
 import com.nts.reservation.product.service.ProductService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/product")
 public class ProductApiController {
-	
+
 	@Autowired
 	private ProductService productService;
 	
-	@GetMapping("/products")
+	@GetMapping
 	public ProductResponse products(
 			@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 			@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
-			@RequestParam(name = "requestedProductCounts", required = false, defaultValue = "0") int requestProductCounts) {
+			@RequestParam(name = "requestProductCounts", required = false, defaultValue = "4") int requestProductCounts) {
+		System.out.println("Controller()");
 		return productService.getProducts(start, categoryId, requestProductCounts);
 	}
 	

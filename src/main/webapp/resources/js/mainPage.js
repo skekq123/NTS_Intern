@@ -13,6 +13,7 @@ function loadProductsCallback(responseData) {
                                                 .replace('{placeName}', items[i].placeName)
                                                 .replace('{content}', items[i].content);
     }
+    
     let moreViewbtn = document.querySelector('.btn');
     
     if (currentStart >= totalCount) { 
@@ -53,12 +54,12 @@ function requestAjax(callback, url) {
 	Req.addEventListener('load', evt => {
 		callback(evt.target.response)
 	});
-	Req.open('GET', '/api' + url);
+	Req.open('GET', 'api/' + url);
 	Req.responseType = 'json';
 	Req.send();
 }
 function mapProductParameters(categoryId, start) {
-	return 'products?categoryId=' + categoryId + '&start=' + start;
+	return 'product?categoryId=' + categoryId + '&start=' + start;
 }
 
 document.addEventListener('DOMContentLoaded', function () {

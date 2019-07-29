@@ -11,13 +11,13 @@ import com.nts.reservation.category.dto.Category;
 import com.nts.reservation.category.service.CategoryService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/category")
 public class CategoryApiController {
 
 	@Autowired
 	private CategoryService categoryService;
 	
-	@GetMapping("/categories")
+	@GetMapping
 	public List<Category> categories() {
 		return categoryService.getCategories();
 	}
