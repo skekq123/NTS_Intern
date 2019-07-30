@@ -26,7 +26,6 @@ function loadProductsCallback(responseData) {
 }
 
 let currentCategory = 0;
-const currentProductUnits = 4;
 
 function setTabButton() {
 	document.querySelector('.tab_lst_min').addEventListener('click', btnEvent => {
@@ -41,7 +40,7 @@ function setTabButton() {
             document.querySelectorAll('a.anchor').forEach(element => element.classList.remove('active'));
             selectedTab.classList.add('active');
             document.querySelectorAll('.lst_event_box').forEach(element => element.innerHTML = '');
-            requestAjax(loadProductsCallback, makeProductApiUrl(currentCategory, currentStart, currentProductUnits));
+            requestAjax(loadProductsCallback, makeProductApiUrl(currentCategory, currentStart));
             }
 	});
 
@@ -66,6 +65,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	setTabButton();
 	
 	document.querySelector('.btn').addEventListener('click', () => {
-		requestAjax(loadProductsCallback, makeProductApiUrl(currentCategory, currentStart, currentProductUnits))
+		requestAjax(loadProductsCallback, makeProductApiUrl(currentCategory, currentStart))
 	});
 });
