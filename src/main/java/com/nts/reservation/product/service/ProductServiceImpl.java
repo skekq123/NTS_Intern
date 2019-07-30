@@ -14,16 +14,14 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public ProductResponse getProducts(int start, int totalCount) {
 		ProductResponse productResponse = new ProductResponse();
-
 		productResponse.setItems(productDao.selectPagingProducts(start, totalCount));
 		productResponse.setTotalCount(productDao.selectCount());
 		return productResponse;
 	}
 
 	@Override
-	public ProductResponse getProducts(int categoryId, int start, int totalCount) {
+	public ProductResponse getProducts(int start, int categoryId, int totalCount) {
 		ProductResponse productResponse = new ProductResponse();
-
 		if (isTotalCategory(categoryId)) {
 			productResponse = getProducts(start, totalCount);
 		} else {
