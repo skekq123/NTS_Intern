@@ -9,15 +9,19 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.product.dto.Product;
+
 @Repository
 public class ProductDao {
+	private NamedParameterJdbcTemplate jdbcUsingParameter;
 	private JdbcTemplate jdbc;
 	private RowMapper<Product> rowMapper = BeanPropertyRowMapper.newInstance(Product.class);
 
 	public ProductDao(DataSource dataSource) {
+		this.jdbcUsingParameter = new NamedParameterJdbcTemplate(dataSource);
 		this.jdbc = new JdbcTemplate(dataSource);
 	}
 
@@ -25,7 +29,8 @@ public class ProductDao {
 		Map<String, Integer> params = new HashMap<String, Integer>();
 		params.put("start", start);
 		params.put("limit", limit);
-		return jdbc.query(ProductDaoSqls.SELECT_PRODUCT_PAGE, rowMapper, params);
+		
+		return jdbcUsingParameter.query(ProductDaoSqls.SELECT_PRODUCT_PAGE, params, rowMapper);
 	}
 
 	public List<Product> selectPagingProductsByCategory(int categoryId, int start, int limit) {
@@ -33,7 +38,8 @@ public class ProductDao {
 		params.put("categoryId", categoryId);
 		params.put("start", start);
 		params.put("limit", limit);
-		return jdbc.query(ProductDaoSqls.SELECT_PRODUCT_PAGE_BY_CATEGORY, rowMapper, params);
+
+		return jdbcUsingParameter.query(ProductDaoSqls.SELECT_PRODUCT_PAGE_BY_CATEGORY, params, rowMapper);
 	}
 
 	public int selectCount() {
@@ -43,6 +49,6 @@ public class ProductDao {
 	public int selectCountByCategory(int categoryId) {
 		Map<String, Integer> params = new HashMap<String, Integer>();
 		params.put("categoryId", categoryId);
-		return jdbc.queryForObject(ProductDaoSqls.SELECT_PRODUCT_COUNT_BY_CATEGORY, Integer.class, params);
+		return jdbcUsingParameter.queryForObject(ProductDaoSqls.SELECT_PRODUCT_COUNT_BY_CATEGORY, params, Integer.class);
 	}
 }
