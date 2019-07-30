@@ -16,8 +16,6 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public List<Category> getCategories() {
-		//ObjectMapper objMapper = new ObjectMapper();
-		//objMapper.writeValueAsString(value)
 		return categoryDao.selectAll();
 	}
 }
