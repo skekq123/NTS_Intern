@@ -120,14 +120,14 @@
 
     <script type="rv-template" id="itemList">
         <li class="item">
-            <a href="detail.html?id=${id}" class="item_book">
+            <a href="detail.html?id={id}" class="item_book">
                 <div class="item_preview">
-                    <img alt="${description}" class="img_thumb" src="http://211.249.62.123/productImages/${id}?type=th">
+                    <img alt="{description}" class="img_thumb" src="resources/{imageUrl}">
                     <span class="img_border"></span>
                 </div>
                 <div class="event_txt">
-                    <h4 class="event_txt_tit"> <span>${description}</span> <small class="sm">${placeName}</small> </h4>
-                    <p class="event_txt_dsc">${content}</p>
+                    <h4 class="event_txt_tit"> <span>{description}</span> <small class="sm">{placeName}</small> </h4>
+                    <p class="event_txt_dsc">{content}</p>
                 </div>
             </a>
         </li>
