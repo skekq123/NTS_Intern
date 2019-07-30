@@ -5,14 +5,15 @@ function loadProductsCallback(responseData) {
     let items = responseData.items;
     let template = document.querySelector('#itemList').innerHTML;
     let containers = document.querySelectorAll('.lst_event_box');
-    for (let i = 0, len = items.length; i < len; ++i) {
-        containers[i % 2].innerHTML += template
-                                                .replace('{imageUrl}', items[i].imageUrl)
-                                                .replace(/{description}/g, items[i].description)
-                                                .replace('{id}', items[i].id)
-                                                .replace('{placeName}', items[i].placeName)
-                                                .replace('{content}', items[i].content);
-    }
+    
+    items.forEach((items,index) => {
+    	containers[index%2].innerHTML += template
+        .replace('{imageUrl}', items.imageUrl)
+        .replace(/{description}/g, items.description)
+        .replace('{id}', items.id)
+        .replace('{placeName}', items.placeName)
+        .replace('{content}', items.content);
+    });
     
     let moreViewbtn = document.querySelector('.btn');
     
