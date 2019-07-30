@@ -67,4 +67,15 @@ document.addEventListener('DOMContentLoaded', function () {
 	document.querySelector('.btn').addEventListener('click', () => {
 		requestAjax(loadProductsCallback, makeProductApiUrl(currentCategory, currentStart))
 	});
+	requestAjax(loadPromotionsCallback, 'promotion');
 });
+
+function loadPromotionsCallback(responseData) {
+    let items = responseData;
+    let template = document.querySelector('#promotionItem').innerHTML;
+    let containers = document.querySelector('.visual_img');
+    items.forEach((items, index) => {
+    	containers.innerHTML += template
+    	.replace(/{productImageUrl}/g, items.productImageUrl);
+    });
+}
