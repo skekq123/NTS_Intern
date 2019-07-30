@@ -34,17 +34,15 @@ function setTabButton() {
     	if (selectedTab.tagName === 'SPAN') {
         	selectedTab = selectedTab.parentElement;
         }
-        if (selectedTab.tagName === 'A') {
-        	let categoryId = selectedTab.parentElement.getAttribute('data-category');
-            if (categoryId != currentCategory) {
-            	currentCategory = categoryId;
-            	currentStart = 0;
-            	document.querySelectorAll('a.anchor').forEach(element => element.classList.remove('active'));
-            	selectedTab.classList.add('active');
-            	document.querySelectorAll('.lst_event_box').forEach(element => element.innerHTML = '');
-            	requestAjax(loadProductsCallback, makeProductApiUrl(currentCategory, currentStart, currentProductUnits));
+        let categoryId = selectedTab.parentElement.getAttribute('data-category');
+        if (categoryId != currentCategory) {
+            currentCategory = categoryId;
+            currentStart = 0;
+            document.querySelectorAll('a.anchor').forEach(element => element.classList.remove('active'));
+            selectedTab.classList.add('active');
+            document.querySelectorAll('.lst_event_box').forEach(element => element.innerHTML = '');
+            requestAjax(loadProductsCallback, makeProductApiUrl(currentCategory, currentStart, currentProductUnits));
             }
-        }
 	});
 
 }
