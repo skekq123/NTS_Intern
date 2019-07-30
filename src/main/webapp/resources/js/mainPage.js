@@ -74,7 +74,7 @@ function loadPromotionsCallback(responseData) {
     let items = responseData;
     let template = document.querySelector('#promotionItem').innerHTML;
     let containers = document.querySelector('.visual_img');
-    items.forEach((items, index) => {
+    items.forEach((items) => {
     	containers.innerHTML += template
     	.replace(/{productImageUrl}/g, items.productImageUrl);
     });
