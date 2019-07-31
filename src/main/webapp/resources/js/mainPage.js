@@ -78,4 +78,35 @@ function loadPromotionsCallback(responseData) {
     	containers.innerHTML += template
     	.replace(/{productImageUrl}/g, items.productImageUrl);
     });
+    containers.innerHTML += template
+    						.replace(/{productImageUrl}/g, items[0].productImageUrl); 
+    promotionSlideAnimation();
+}
+
+function promotionSlideAnimation() {
+	let promotionList = document.querySelectorAll('.visual_img > .item');
+	let leftDistance = -100;
+	let promotionLength = promotionList.length;
+	let currentImgIndex = 1;
+	
+	setInterval(() => {
+		promotionList.forEach((list) => {
+			list.style.transitionDuration = '1s';
+			list.style.transform = `translateX(${leftDistance}%)`;
+		});
+		leftDistance -= 100;
+		++currentImgIndex;
+		
+		if(currentImgIndex >= promotionLength+1) {
+			currentImgIndex = 0;
+			leftDistance = 0;
+			promotionList.forEach((list) => {
+			list.style.transitionDuration = '0s';
+			list.style.transform = `translateX(${leftDistance}%)`;
+			});
+			currentImgIndex = 1;
+			leftDistance = -100;
+		}
+		requestAnimationFrame(setInterval);
+	}, 1000);
 }
