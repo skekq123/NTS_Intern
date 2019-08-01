@@ -15,12 +15,12 @@ function loadProductsCallback(responseData) {
         .replace('{content}', items.content);
     });
     
-    let moreViewbtn = document.querySelector('.see_more_btn');
+    let moreViewBtn = document.querySelector('.see_more_btn');
     
     if (currentStart >= totalCount) { 
-        moreViewbtn.style.display = 'none'; // 비활성화
+        moreViewBtn.style.display = 'none'; // 비활성화
     } else {
-        moreViewbtn.style.display = 'initial';
+        moreViewBtn.style.display = 'initial';
     }
     document.querySelector('.pink').innerText = totalCount + '개';
 }
