@@ -15,7 +15,7 @@ function loadProductsCallback(responseData) {
         .replace('{content}', items.content);
     });
     
-    let moreViewbtn = document.querySelector('.btn');
+    let moreViewbtn = document.querySelector('.see_more_btn');
     
     if (currentStart >= totalCount) { 
         moreViewbtn.style.display = 'none'; // 비활성화
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	requestAjax(loadProductsCallback, makeProductApiUrl(0, 0));
 	setTabButton();
 	
-	document.querySelector('.btn').addEventListener('click', () => {
+	document.querySelector('.see_more_btn').addEventListener('click', () => {
 		requestAjax(loadProductsCallback, makeProductApiUrl(currentCategory, currentStart))
 	});
 	requestAjax(loadPromotionsCallback, 'api/promotion');

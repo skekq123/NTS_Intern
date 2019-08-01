@@ -89,7 +89,7 @@
                     </ul>
                     <!-- 더보기 -->
                     <div class="more">
-                        <button class="btn"><span>더보기</span></button>
+                        <button class="btn see_more_btn"><span>더보기</span></button>
                     </div>
                 </div>
             </div>
