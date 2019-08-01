@@ -71,42 +71,46 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function loadPromotionsCallback(responseData) {
-    let items = responseData;
-    let template = document.querySelector('#promotionItem').innerHTML;
-    let containers = document.querySelector('.visual_img');
-    items.forEach((items) => {
-    	containers.innerHTML += template
-    	.replace(/{productImageUrl}/g, items.productImageUrl);
-    });
-    containers.innerHTML += template
-    						.replace(/{productImageUrl}/g, items[0].productImageUrl); 
-    promotionSlideAnimation();
-}
-
-function promotionSlideAnimation() {
-	let promotionList = document.querySelectorAll('.visual_img > .item');
-	let leftDistance = -100;
-	let promotionLength = promotionList.length;
-	let currentImgIndex = 1;
+	let items = responseData;
+	let promotionLength = items.length;
+	let promotionList = document.querySelector(".visual_img");
+	let template = document.querySelector('#promotionItem').innerHTML;
 	
-	setInterval(() => {
-		promotionList.forEach((list) => {
-			list.style.transitionDuration = '1s';
-			list.style.transform = `translateX(${leftDistance}%)`;
-		});
-		leftDistance -= 100;
+	items.forEach((items) => {
+		promotionList.insertAdjacentHTML('beforeend', template
+		    	.replace(/{productImageUrl}/g, items.productImageUrl));
+    });
+	promotionList.insertAdjacentHTML('beforeend', template
+	    	.replace(/{productImageUrl}/g, items[0].productImageUrl));
+	
+    promotionSlideAnimation(promotionList, promotionLength);
+}
+function promotionSlideAnimation(promotionList, promotionLength) {
+	let leftDistance = 0;
+	let currentImgIndex = 0;
+
+	promotionList.addEventListener("transitionend", function() {
+		leftDistance += 414;
 		++currentImgIndex;
-		
-		if(currentImgIndex >= promotionLength+1) {
-			currentImgIndex = 0;
-			leftDistance = 0;
-			promotionList.forEach((list) => {
-			list.style.transitionDuration = '0s';
-			list.style.transform = `translateX(${leftDistance}%)`;
-			});
-			currentImgIndex = 1;
-			leftDistance = -100;
+		if(currentImgIndex === (promotionLength + 1)) {
+			promotionList.style.transition = null;
+			promotionList.style.transform = "translateX(0)";
 		}
-		requestAnimationFrame(setInterval);
-	}, 1000);
+	});
+	
+	promotionList.style.transition = "0.5s";
+	
+	function slide() {
+		setTimeout(() => {
+			if(currentImgIndex === (promotionLength + 1)) {
+				currentImgIndex = 1;
+				leftDistance = 414;
+				promotionList.style.transition = "0.5s";
+			}
+			
+			promotionList.style.transform = `translateX(-${leftDistance}px)`;
+			requestAnimationFrame(slide);
+		}, 1000);
+	}
+	requestAnimationFrame(slide);
 }
