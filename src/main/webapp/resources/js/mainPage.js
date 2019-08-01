@@ -52,12 +52,12 @@ function requestAjax(callback, url) {
 	Req.addEventListener('load', evt => {
 		callback(evt.target.response)
 	});
-	Req.open('GET', 'api/' + url);
+	Req.open('GET', url);
 	Req.responseType = 'json';
 	Req.send();
 }
 function makeProductApiUrl(categoryId, start) {
-	return 'product?categoryId=' + categoryId + '&start=' + start;
+	return 'api/product?categoryId=' + categoryId + '&start=' + start;
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	document.querySelector('.btn').addEventListener('click', () => {
 		requestAjax(loadProductsCallback, makeProductApiUrl(currentCategory, currentStart))
 	});
-	requestAjax(loadPromotionsCallback, 'promotion');
+	requestAjax(loadPromotionsCallback, 'api/promotion');
 });
 
 function loadPromotionsCallback(responseData) {
