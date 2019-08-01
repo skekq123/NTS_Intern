@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Promotion {
-	private Integer id;
-	private Integer productId;
+	private int id;
+	private int productId;
 	private String productImageUrl;
 }
