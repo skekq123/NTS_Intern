@@ -8,7 +8,7 @@
     <meta name="description" content="네이버 예약, 네이버 예약이 연동된 곳 어디서나 바로 예약하고, 네이버 예약 홈(나의예약)에서 모두 관리할 수 있습니다.">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
     <title>네이버 예약</title>
-    <link href="../css/style.css" rel="stylesheet">
+    <link href="resources/css/style.css" rel="stylesheet">
     <style>
         .container_visual {
             height: 414px;
@@ -45,43 +45,10 @@
                         </div>
                     </div>
                     <div class="group_visual">
-                        <div>
-                            <div class="container_visual" style="width: 414px;">
-                                <ul class="visual_img detail_swipe">
-                                    <li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src=""> <span class="img_bg"></span>
-                                        <div class="visual_txt">
-                                            <div class="visual_txt_inn">
-                                                <h2 class="visual_txt_tit"> <span></span> </h2>
-                                                <p class="visual_txt_dsc"></p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src=""> <span class="img_bg"></span>
-                                        <div class="visual_txt">
-                                            <div class="visual_txt_inn">
-                                                <h2 class="visual_txt_tit"> <span></span> </h2>
-                                                <p class="visual_txt_dsc"></p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src=""> <span class="img_bg"></span>
-                                        <div class="visual_txt">
-                                            <div class="visual_txt_inn">
-                                                <h2 class="visual_txt_tit"> <span></span> </h2>
-                                                <p class="visual_txt_dsc"></p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src=""> <span class="img_bg"></span>
-                                        <div class="visual_txt">
-                                            <div class="visual_txt_inn">
-                                                <h2 class="visual_txt_tit"> <span></span> </h2>
-                                                <p class="visual_txt_dsc"></p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
+                        	<div class="container_visual" style="width: 414px;">
+								<ul class="visual_img detail_swipe">
+								</ul>
+							</div>
                             <div class="prev">
                                 <div class="prev_inn">
                                     <a href="#" class="btn_prev" title="이전">
@@ -261,6 +228,22 @@
         </div>
     </footer>
     <div id="photoviwer"></div>
+    <script type="rv-template" id="bannerImage">
+		<li class="item" style="width: 414px;"> <img alt="{{productDescription}}" class="img_thumb" src="resources/{{saveFileName}}"> <span class="img_bg"></span>
+            <div class="visual_txt">
+                <div class="visual_txt_inn">
+                    <h2 class="visual_txt_tit"> <span>{{productDescription}}</span> </h2>
+                    <p class="visual_txt_dsc"></p>
+                </div>
+            </div>
+        </li>
+	</script>
+	
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js">
+		
+	</script>
+    <script type="text/javascript" src="resources/js/detailPage.js"></script>
 </body>
 
 
