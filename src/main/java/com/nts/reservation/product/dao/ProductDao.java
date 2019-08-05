@@ -13,12 +13,13 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.product.dto.Product;
+import com.nts.reservation.product.dto.ProductImage;
 
 @Repository
 public class ProductDao {
 	private NamedParameterJdbcTemplate jdbc;
 	private RowMapper<Product> rowMapper = BeanPropertyRowMapper.newInstance(Product.class);
-
+	private RowMapper<ProductImage> rowMapperProductImage = BeanPropertyRowMapper.newInstance(ProductImage.class);
 	public ProductDao(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
@@ -48,5 +49,12 @@ public class ProductDao {
 		Map<String, Integer> params = new HashMap<String, Integer>();
 		params.put("categoryId", categoryId);
 		return jdbc.queryForObject(ProductDaoSqls.SELECT_PRODUCT_COUNT_BY_CATEGORY, params, Integer.class);
+	}
+	
+	public List<ProductImage> selectProductImages(int displayInfoId) {
+		Map<String, Integer> params = new HashMap<String,Integer>();
+		params.put("displayInfoId", displayInfoId);
+
+		return jdbc.query(ProductDaoSqls.SELECT_PROUDUCT_IMAGE, params, rowMapperProductImage);
 	}
 }
