@@ -15,13 +15,12 @@ public class ProductApiController {
 
 	@Autowired
 	private ProductService productService;
-	
+
 	@GetMapping
-	public ProductResponse products(
-			@RequestParam(name = "start", required = false, defaultValue = "0") int start,
+	public ProductResponse products(@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 			@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
 			@RequestParam(name = "requestProductCounts", required = false, defaultValue = "4") int requestProductCounts) {
 		return productService.getProducts(start, categoryId, requestProductCounts);
 	}
-	
+
 }

@@ -1,7 +1,5 @@
 package com.nts.reservation.category.dao;
 
-import com.nts.reservation.category.dao.CategoryDaoSqls;
-
 import java.util.List;
 
 import javax.sql.DataSource;

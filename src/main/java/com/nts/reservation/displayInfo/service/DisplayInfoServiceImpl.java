@@ -19,15 +19,15 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	private DisplayInfoDao displayInfoDao;
 	@Autowired
 	private ProductDao productDao;
-	
+
 	@Override
 	public DisplayInfoResponse getDisplayInfos(int displayInfoId) {
 		DisplayInfoResponse displayInfoResponse = new DisplayInfoResponse();
-		
+
 		DisplayInfo selectDisplayInfo = displayInfoDao.selectDisplayInfoByDisplayInfoId(displayInfoId);
 		DisplayInfoImage selectDisplayInfoImage = displayInfoDao.selectDisplayInfoImageByDisplayInfoId(displayInfoId);
 		List<ProductImage> selectProductImages = productDao.selectProductImages(displayInfoId);
-		
+
 		displayInfoResponse.setDisplayInfoImage(selectDisplayInfoImage);
 		displayInfoResponse.setProductImages(selectProductImages);
 		displayInfoResponse.setDisplayInfo(selectDisplayInfo);

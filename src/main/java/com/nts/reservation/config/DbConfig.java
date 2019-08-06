@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class DbConfig {
 
-	private final String DRIVER_CLASS_NAME= "com.mysql.jdbc.Driver";
+	private final String DRIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
 	private final String DB_URL = "jdbc:mysql://10.113.116.52:13306/user7";
 	private final String DB_USER = "user7";
 	private final String DB_PASSWORD = "user7";

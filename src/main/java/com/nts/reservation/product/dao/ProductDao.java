@@ -20,6 +20,7 @@ public class ProductDao {
 	private NamedParameterJdbcTemplate jdbc;
 	private RowMapper<Product> rowMapper = BeanPropertyRowMapper.newInstance(Product.class);
 	private RowMapper<ProductImage> rowMapperProductImage = BeanPropertyRowMapper.newInstance(ProductImage.class);
+
 	public ProductDao(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
@@ -28,7 +29,7 @@ public class ProductDao {
 		Map<String, Integer> params = new HashMap<String, Integer>();
 		params.put("start", start);
 		params.put("limit", limit);
-		
+
 		return jdbc.query(ProductDaoSqls.SELECT_PRODUCT_PAGE, params, rowMapper);
 	}
 
@@ -42,7 +43,8 @@ public class ProductDao {
 	}
 
 	public Integer selectCount() {
-		return jdbc.queryForObject(ProductDaoSqls.SELECT_PRODUCT_COUNT, Collections.<String, Integer>emptyMap(), Integer.class);
+		return jdbc.queryForObject(ProductDaoSqls.SELECT_PRODUCT_COUNT, Collections.<String, Integer>emptyMap(),
+				Integer.class);
 	}
 
 	public int selectCountByCategory(int categoryId) {
@@ -50,9 +52,9 @@ public class ProductDao {
 		params.put("categoryId", categoryId);
 		return jdbc.queryForObject(ProductDaoSqls.SELECT_PRODUCT_COUNT_BY_CATEGORY, params, Integer.class);
 	}
-	
+
 	public List<ProductImage> selectProductImages(int displayInfoId) {
-		Map<String, Integer> params = new HashMap<String,Integer>();
+		Map<String, Integer> params = new HashMap<String, Integer>();
 		params.put("displayInfoId", displayInfoId);
 
 		return jdbc.query(ProductDaoSqls.SELECT_PROUDUCT_IMAGE, params, rowMapperProductImage);

@@ -9,9 +9,10 @@ import com.nts.reservation.promotion.dao.PromotionDao;
 import com.nts.reservation.promotion.dto.Promotion;
 
 @Service
-public class PromotionServiceImpl implements PromotionService{
+public class PromotionServiceImpl implements PromotionService {
 	@Autowired
 	private PromotionDao promotionDao;
+
 	@Override
 	public List<Promotion> getPromotions() {
 		return promotionDao.selectPagingCategories();

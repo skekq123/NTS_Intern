@@ -30,6 +30,7 @@ public class ProductServiceImpl implements ProductService {
 	private boolean isTotalCategory(int categoryId) {
 		return categoryId == 0;
 	}
+
 	@Override
 	public List<ProductImage> getProductImages(int displayInfoId) {
 		return productDao.selectProductImages(displayInfoId);

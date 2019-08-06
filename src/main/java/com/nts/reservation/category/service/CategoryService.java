@@ -7,4 +7,3 @@ import com.nts.reservation.category.dto.Category;
 public interface CategoryService {
 	List<Category> getCategories();
 }
-	

@@ -16,10 +16,10 @@ public class CategoryApiController {
 
 	@Autowired
 	private CategoryService categoryService;
-	
+
 	@GetMapping
 	public List<Category> getCategory() {
 		return categoryService.getCategories();
 	}
-	
+
 }
