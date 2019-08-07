@@ -36,4 +36,9 @@ public class DisplayInfoDao {
 		return jdbc.queryForObject(DisplayInfoSqls.SELECT_DISPLAY_INFO_IMAGE, params, rowMapperDisplayInfoImage);
 	}
 
+	public double selectAverageScore(int displayInfoId) {
+		Map<String, Integer> params = new HashMap<String, Integer>();
+		params.put("displayInfoId", displayInfoId);
+		return jdbc.queryForObject(DisplayInfoSqls.SELECT_AVERAGE_SCORE, params, Double.class);
+	}
 }

@@ -15,4 +15,5 @@ public class DisplayInfoResponse {
 	private List<ProductImage> productImages;
 	private DisplayInfo displayInfo;
 	private List<Comment> Comments;
+	private double averageScore;
 }
