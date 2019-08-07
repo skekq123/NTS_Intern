@@ -32,12 +32,17 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 		DisplayInfoImage selectDisplayInfoImage = displayInfoDao.selectDisplayInfoImageByDisplayInfoId(displayInfoId);
 		List<ProductImage> selectProductImages = productDao.selectProductImages(displayInfoId);
 		List<Comment> selectComments = commentServiceImpl.getComments(displayInfoId);
-		
+		double selectAverageScore = 0;
+
+		// 댓글이 있으면 평균 점수 가져오기
+		if (!selectComments.isEmpty()) {
+			selectAverageScore = displayInfoDao.selectAverageScore(displayInfoId);
+		}
 		displayInfoResponse.setDisplayInfoImage(selectDisplayInfoImage);
 		displayInfoResponse.setProductImages(selectProductImages);
 		displayInfoResponse.setDisplayInfo(selectDisplayInfo);
 		displayInfoResponse.setComments(selectComments);
-		
+		displayInfoResponse.setAverageScore(selectAverageScore);
 		return displayInfoResponse;
 	}
 }
