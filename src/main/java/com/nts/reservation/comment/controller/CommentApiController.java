@@ -20,6 +20,6 @@ public class CommentApiController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Comment> products(@RequestParam(name = "id", required = false, defaultValue = "0") int displayInfoId) {
-		return commentServiceImpl.getTotalComments(displayInfoId);
+		return commentServiceImpl.getComments(displayInfoId);
 	}
 }
