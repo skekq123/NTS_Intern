@@ -77,8 +77,8 @@ function loadDisplayInfoCallback(responseData) {
         comment.productDescription = displayInfo.productDescription;
     });
 
-    // averageScore, commentCount 정보를 displayCommentInfo에 추가
-   
+    // averageScore 정보를 displayCommentInfo에 추가
+    displayCommentInfo.averageScore = displayInfoResponse.averageScore;
     initComment(displayCommentInfo, displayCommentInfo.length);
     // Comment 더보기 버튼 설정
     initMoreCommentBtn(displayInfo.displayInfoId);
@@ -112,6 +112,11 @@ function initComment(displayCommentInfo, totalComments) {
     let commentCount = totalComments;
 	document.querySelector('span.join_count>em.green').innerText = commentCount+'건';
 	
+	// 평균 점수
+	let averageScore = displayCommentInfo.averageScore;
+	
+	document.querySelector('em.graph_value').style.width = (averageScore*20) + '%';
+	document.querySelector('.text_value>span').innerText = averageScore;
 	
 	// 댓글 더보기 버튼
 	let reviewMoreBtn = document.querySelector('a.btn_review_more');
