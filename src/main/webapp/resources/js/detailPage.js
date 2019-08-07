@@ -49,7 +49,7 @@ function loadDisplayInfoCallback(responseData) {
     let isAddtionalDisplayImage = false;
     let TitleDisplayImage = "";
 //     ma 타입의 이미지 정보를 displayInfo에 추가
-//     ta 타입의 이미지가 있다면 한장을 additionalDsiplayInfo에 추가
+//     et 타입의 이미지가 있다면 한장을 additionalDsiplayInfo에 추가
     displayProductImages.forEach(image => {
         if(image.type === 'ma') {
             displayInfo.saveFileName = image.saveFileName;
@@ -62,19 +62,64 @@ function loadDisplayInfoCallback(responseData) {
 //	 TitleImage 설정
     initTitleImage(displayInfo);
     initDetailBtn();
-    
     if(isAddtionalDisplayImage) { //추가적 사진이 있으면 
         let addtionalDisplayInfo = displayInfoResponse["displayInfo"];
         
         displayProductImages.forEach(image => {
         if(image.type === 'et') addtionalDisplayInfo.saveFileName = image.saveFileName;
         });
-        
-        TitleSlide(addtionDisplayInfo, TitleDisplayImage);
+    //    TitleSlide(addtionDisplayInfo, TitleDisplayImage); 
     }
+    
+    // productDescription 정보를 displayCommentInfo에 추가
+    let displayCommentInfo = displayInfoResponse["comments"];
+    displayCommentInfo.forEach(comment => {
+        comment.productDescription = displayInfo.productDescription;
+    });
+
+    // averageScore, commentCount 정보를 displayCommentInfo에 추가
+   
+    initComment(displayCommentInfo, displayCommentInfo.length);
+    // Comment 더보기 버튼 설정
+    initMoreCommentBtn(displayInfo.displayInfoId);
 }
 function TitleSlide(addtionalDisplayInfo, TitleDisplayImage) {
 	//TODO : 슬라이드 부분 작성
+}
+
+function initComment(displayCommentInfo, totalComments) {
+    let commentTemplate = document.querySelector('#commentItem').innerText;
+    let bindCommentTemplate = Handlebars.compile(commentTemplate);
+    let commentContainer = document.querySelector('ul.list_short_review');
+
+    if(totalComments <= 3){
+        displayCommentInfo.forEach(comment => {
+            if(comment.commentImages != 0) {
+                comment.saveFileName = comment.commentImages[0].saveFileName;
+            }
+            commentContainer.innerHTML += bindCommentTemplate(comment);
+        });
+    } else {
+        for(let i = 0; i < 3; ++i) {
+            if(displayCommentInfo[i].commentImages != 0) {
+                displayCommentInfo[i].saveFileName = displayCommentInfo[i].commentImages[0].saveFileName;
+            }
+            commentContainer.innerHTML += bindCommentTemplate(displayCommentInfo[i]);
+        }
+    }
+
+    // 총 댓글 갯수
+    let commentCount = totalComments;
+	document.querySelector('span.join_count>em.green').innerText = commentCount+'건';
+	
+	
+	// 댓글 더보기 버튼
+	let reviewMoreBtn = document.querySelector('a.btn_review_more');
+	if(totalComments > 3){
+		reviewMoreBtn.setAttribute('href','/');
+	} else{
+		reviewMoreBtn.style.display = 'none';
+	}
 }
 function initDetailBtn() {
 	let openBtn = document.querySelector('a._open');	
@@ -110,4 +155,9 @@ function initDetailBtn() {
 	} else {
 		openBtn.style.display = 'none';
 	}
+}
+
+//Comment 더보기 버튼 설정
+function initMoreCommentBtn(displayInfoId) {
+	 document.querySelector('.btn_review_more').setAttribute('href','review?id=' + displayInfoId);
 }
