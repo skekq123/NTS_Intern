@@ -19,7 +19,7 @@ public class CommentApiController {
 	private CommentService commentServiceImpl;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Comment> products(@RequestParam(name = "id", required = false, defaultValue = "0") int displayInfoId) {
+	public List<Comment> getProduct(@RequestParam(name = "id", required = false, defaultValue = "0") int displayInfoId) {
 		return commentServiceImpl.getComments(displayInfoId);
 	}
 }

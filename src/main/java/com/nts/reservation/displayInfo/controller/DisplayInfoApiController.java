@@ -17,7 +17,7 @@ public class DisplayInfoApiController {
 	private DisplayInfoService displayInfoServiceImpl;
 
 	@RequestMapping(value = "/{displayInfoId}", method = RequestMethod.GET)
-	public DisplayInfoResponse displayInfos(@PathVariable("displayInfoId") int displayInfoId) {
+	public DisplayInfoResponse getDisplayInfo(@PathVariable("displayInfoId") int displayInfoId) {
 
 		return displayInfoServiceImpl.getDisplayInfos(displayInfoId);
 	}
