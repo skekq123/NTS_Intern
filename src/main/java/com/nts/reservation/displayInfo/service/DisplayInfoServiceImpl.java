@@ -28,8 +28,8 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	public DisplayInfoResponse getDisplayInfos(int displayInfoId) {
 		DisplayInfoResponse displayInfoResponse = new DisplayInfoResponse();
 
-		DisplayInfo selectDisplayInfo = displayInfoDao.selectDisplayInfoByDisplayInfoId(displayInfoId);
-		DisplayInfoImage selectDisplayInfoImage = displayInfoDao.selectDisplayInfoImageByDisplayInfoId(displayInfoId);
+		DisplayInfo selectDisplayInfo = displayInfoDao.selectDisplayInfo(displayInfoId);
+		DisplayInfoImage selectDisplayInfoImage = displayInfoDao.selectDisplayInfoImage(displayInfoId);
 		List<ProductImage> selectProductImages = productDao.selectProductImages(displayInfoId);
 		List<Comment> selectComments = commentServiceImpl.getComments(displayInfoId);
 		double selectAverageScore = 0;

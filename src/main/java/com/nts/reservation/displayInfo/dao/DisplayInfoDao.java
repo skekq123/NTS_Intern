@@ -24,13 +24,13 @@ public class DisplayInfoDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public DisplayInfo selectDisplayInfoByDisplayInfoId(int displayInfoId) {
+	public DisplayInfo selectDisplayInfo(int displayInfoId) {
 		Map<String, Integer> params = new HashMap<String, Integer>();
 		params.put("displayInfoId", displayInfoId);
 		return jdbc.queryForObject(DisplayInfoSqls.SELECT_DISPLAY_INFO, params, rowMapperDisplayInfo);
 	}
 
-	public DisplayInfoImage selectDisplayInfoImageByDisplayInfoId(int displayInfoId) {
+	public DisplayInfoImage selectDisplayInfoImage(int displayInfoId) {
 		Map<String, Integer> params = new HashMap<String, Integer>();
 		params.put("displayInfoId", displayInfoId);
 		return jdbc.queryForObject(DisplayInfoSqls.SELECT_DISPLAY_INFO_IMAGE, params, rowMapperDisplayInfoImage);
