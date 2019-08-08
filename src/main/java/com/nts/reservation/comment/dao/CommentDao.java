@@ -24,7 +24,7 @@ public class CommentDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<Comment> selectComment(int displayInfoId) {
+	public List<Comment> selectComments(int displayInfoId) {
 		Map<String, Integer> params = new HashMap<String, Integer>();
 		params.put("displayInfoId", displayInfoId);
 		return jdbc.query(CommentSqls.SELECT_COMMENT, params, rowMapperComment);

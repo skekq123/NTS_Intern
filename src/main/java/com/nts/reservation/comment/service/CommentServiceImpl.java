@@ -16,7 +16,7 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<Comment> getComments(int displayInfoId) {
-		List<Comment> comment = commentDao.selectComment(displayInfoId);
+		List<Comment> comment = commentDao.selectComments(displayInfoId);
 		comment.forEach(commentItem -> {
 			commentItem.setCommentImages(commentDao.selectCommentImages(commentItem.getCommentId()));
 		});
