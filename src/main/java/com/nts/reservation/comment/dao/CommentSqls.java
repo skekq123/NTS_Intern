@@ -23,6 +23,5 @@ public class CommentSqls {
 			+ "reservation_user_comment.score AS score "
 			+ "FROM reservation_user_comment "
 			+ "INNER JOIN reservation_info ON reservation_info.id = reservation_user_comment.reservation_info_id "
-			+ "WHERE reservation_info.display_info_id = :displayInfoId "
-			+ "ORDER BY comment_id DESC;";
+			+ "WHERE reservation_info.display_info_id = :displayInfoId ";
 }
