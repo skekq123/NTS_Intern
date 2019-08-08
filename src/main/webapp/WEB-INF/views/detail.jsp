@@ -208,9 +208,12 @@
 			<div>
 				<div class="review_area">
 					{{#if commentImages}}
-					<div class="thumb_area">
-						<a href="#" class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src="{{saveFileName}}" alt=""> </a> <span class="img_count" style="display:none;">1</span>
-					</div>
+                    <div class="review_area">
+                        <div class="thumb_area">
+                        	<a href="#" class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src=resources/{{saveFileName}} alt="리뷰이미지"> </a> <span class="img_count">1</span>
+						</div>
+					
+					{{else}}<div class="review_area no_img">
 					{{/if}}
 						<h4 class="resoc_name">{{productDescription}}</h4>
 						<p class="review">{{comment}}</p>
