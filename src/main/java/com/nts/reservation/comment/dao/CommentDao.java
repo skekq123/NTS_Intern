@@ -1,8 +1,7 @@
 package com.nts.reservation.comment.dao;
 
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -25,15 +24,13 @@ public class CommentDao {
 	}
 
 	public List<Comment> selectComments(int displayInfoId) {
-		Map<String, Integer> params = new HashMap<String, Integer>();
-		params.put("displayInfoId", displayInfoId);
-		return jdbc.query(CommentSqls.SELECT_COMMENT, params, rowMapperComment);
+		return jdbc.query(CommentSqls.SELECT_COMMENT, Collections.singletonMap("displayInfoId", displayInfoId),
+				rowMapperComment);
 	}
 
 	public List<CommentImage> selectCommentImages(int commentId) {
-		Map<String, Integer> params = new HashMap<String, Integer>();
-		params.put("commentId", commentId);
-		return jdbc.query(CommentSqls.SELECT_COMMENT_IMAGES, params, rowMapperCommentImage);
+		return jdbc.query(CommentSqls.SELECT_COMMENT_IMAGES, Collections.singletonMap("commentId", commentId),
+				rowMapperCommentImage);
 	}
 
 }

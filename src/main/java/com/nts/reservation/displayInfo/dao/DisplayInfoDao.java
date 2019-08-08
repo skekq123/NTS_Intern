@@ -1,7 +1,6 @@
 package com.nts.reservation.displayInfo.dao;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Collections;
 
 import javax.sql.DataSource;
 
@@ -25,20 +24,17 @@ public class DisplayInfoDao {
 	}
 
 	public DisplayInfo selectDisplayInfo(int displayInfoId) {
-		Map<String, Integer> params = new HashMap<String, Integer>();
-		params.put("displayInfoId", displayInfoId);
-		return jdbc.queryForObject(DisplayInfoSqls.SELECT_DISPLAY_INFO, params, rowMapperDisplayInfo);
+		return jdbc.queryForObject(DisplayInfoSqls.SELECT_DISPLAY_INFO,
+				Collections.singletonMap("displayInfoId", displayInfoId), rowMapperDisplayInfo);
 	}
 
 	public DisplayInfoImage selectDisplayInfoImage(int displayInfoId) {
-		Map<String, Integer> params = new HashMap<String, Integer>();
-		params.put("displayInfoId", displayInfoId);
-		return jdbc.queryForObject(DisplayInfoSqls.SELECT_DISPLAY_INFO_IMAGE, params, rowMapperDisplayInfoImage);
+		return jdbc.queryForObject(DisplayInfoSqls.SELECT_DISPLAY_INFO_IMAGE,
+				Collections.singletonMap("displayInfoId", displayInfoId), rowMapperDisplayInfoImage);
 	}
 
 	public double selectAverageScore(int displayInfoId) {
-		Map<String, Integer> params = new HashMap<String, Integer>();
-		params.put("displayInfoId", displayInfoId);
-		return jdbc.queryForObject(DisplayInfoSqls.SELECT_AVERAGE_SCORE, params, Double.class);
+		return jdbc.queryForObject(DisplayInfoSqls.SELECT_AVERAGE_SCORE,
+				Collections.singletonMap("displayInfoId", displayInfoId), Double.class);
 	}
 }

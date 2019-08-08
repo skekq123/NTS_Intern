@@ -48,15 +48,12 @@ public class ProductDao {
 	}
 
 	public int selectCountByCategory(int categoryId) {
-		Map<String, Integer> params = new HashMap<String, Integer>();
-		params.put("categoryId", categoryId);
-		return jdbc.queryForObject(ProductDaoSqls.SELECT_PRODUCT_COUNT_BY_CATEGORY, params, Integer.class);
+		return jdbc.queryForObject(ProductDaoSqls.SELECT_PRODUCT_COUNT_BY_CATEGORY,
+				Collections.singletonMap("categoryId", categoryId), Integer.class);
 	}
 
 	public List<ProductImage> selectProductImages(int displayInfoId) {
-		Map<String, Integer> params = new HashMap<String, Integer>();
-		params.put("displayInfoId", displayInfoId);
-
-		return jdbc.query(ProductDaoSqls.SELECT_PROUDUCT_IMAGE, params, rowMapperProductImage);
+		return jdbc.query(ProductDaoSqls.SELECT_PROUDUCT_IMAGE,
+				Collections.singletonMap("displayInfoId", displayInfoId), rowMapperProductImage);
 	}
 }
