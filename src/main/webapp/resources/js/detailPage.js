@@ -17,7 +17,7 @@ function initTitleImage(displayInfo) {
 
     document.querySelector('div.figure_pagination').firstElementChild.classList.add('off');
 }
-//Url의 name에 해당하는 Parameter 추출
+// Url의 name에 해당하는 Parameter 추출
 function getUrlParameter(name) {
 	let params = location.href.split('?')[1].split('&');
 	for (let i = 0; i < params.length; i++) {
@@ -40,7 +40,6 @@ function requestAjax(callback, url) {
 	Req.responseType = 'json';
 	Req.send();
 }
-
 function loadDisplayInfoCallback(responseData) {
     let displayInfoResponse = responseData;
     let displayInfo = displayInfoResponse["displayInfo"];
@@ -48,8 +47,8 @@ function loadDisplayInfoCallback(responseData) {
 
     let isAddtionalDisplayImage = false;
     let TitleDisplayImage = "";
-//     ma 타입의 이미지 정보를 displayInfo에 추가
-//     et 타입의 이미지가 있다면 한장을 additionalDsiplayInfo에 추가
+// ma 타입의 이미지 정보를 displayInfo에 추가
+// et 타입의 이미지가 있다면 한장을 additionalDsiplayInfo에 추가
     displayProductImages.forEach(image => {
         if(image.type === 'ma') {
             displayInfo.saveFileName = image.saveFileName;
@@ -59,16 +58,17 @@ function loadDisplayInfoCallback(responseData) {
             isAddtionalDisplayImage = true;
         }
     });
-//	 TitleImage 설정
+// TitleImage 설정
     initTitleImage(displayInfo);
     initDetailBtn();
-    if(isAddtionalDisplayImage) { //추가적 사진이 있으면 
+    
+    if(isAddtionalDisplayImage) { // 추가적 사진이 있으면
         let addtionalDisplayInfo = displayInfoResponse["displayInfo"];
         
         displayProductImages.forEach(image => {
         if(image.type === 'et') addtionalDisplayInfo.saveFileName = image.saveFileName;
         });
-    //    TitleSlide(addtionDisplayInfo, TitleDisplayImage); 
+        TitleSlide(addtionalDisplayInfo, TitleDisplayImage); 
     }
     
     // productDescription 정보를 displayCommentInfo에 추가
@@ -82,12 +82,109 @@ function loadDisplayInfoCallback(responseData) {
     initComment(displayCommentInfo, displayCommentInfo.length);
     // Comment 더보기 버튼 설정
     initMoreCommentBtn(displayInfo.displayInfoId);
-    //상세정보, 오시는길
+    // 상세정보, 오시는길
     initDetailPathTab(displayInfoResponse);
 }
 function TitleSlide(addtionalDisplayInfo, TitleDisplayImage) {
-	//TODO : 슬라이드 부분 작성
-	
+    let titleTemplate = document.querySelector('#bannerImage').innerText;
+    let bindTitleTemplate = Handlebars.compile(titleTemplate);
+    let titleContainer = document.querySelector('ul.detail_swipe');
+
+    titleContainer.innerHTML += bindTitleTemplate(addtionalDisplayInfo);
+    
+    addtionalDisplayInfo.saveFileName = TitleDisplayImage;
+    titleContainer.innerHTML += bindTitleTemplate(addtionalDisplayInfo);
+
+    document.querySelector('div.store_details>p.dsc').innerHTML = addtionalDisplayInfo.productContent;
+    
+    // next, prev 버튼 활성화
+    document.querySelector('div.prev').style.display = '';
+    document.querySelector('div.nxt').style.display = '';
+    
+    document.querySelector('div.figure_pagination').firstElementChild.classList.remove('off');
+    document.querySelector('div.figure_pagination').lastElementChild.innerText = '/ 2';
+
+    let currentTitle = 1;
+    let titleImageList = document.querySelectorAll('.visual_img > .item');
+    let promotionLength = titleImageList.length;
+    let leftDistance = 0;
+
+    let btnNext = document.querySelector('a.btn_nxt');
+    
+    function nextArrowEventHandler() {
+        currentTitle++;
+        // 애니메이션 도중 click EventListner 중지
+        btnNext.removeEventListener('click',nextArrowEventHandler);
+        btnPrev.removeEventListener('click', prevArrowEventHandler);
+
+        if(currentTitle > 2) {
+            currentTitle = 1;
+            leftDistance -= 100;
+            
+            titleImageList.forEach((list) => {
+                list.style.left = leftDistance + '%';
+            });
+            
+            leftDistance = 0;
+            titleImageList.forEach((list) => {
+            list.style.transitionDuration = '0s';
+            list.style.left = leftDistance + '%';
+            });
+            
+            titleImageList.forEach((list) => {
+            list.style.transitionDuration = '1s';
+            });
+            // 애니메이션이 끝나면 click EventListner 활성화
+            btnNext.addEventListener('click', nextArrowEventHandler);
+            btnPrev.addEventListener('click', prevArrowEventHandler);
+        }
+        else {
+        	leftDistance -= 100;
+        	titleImageList.forEach((list) => {
+        		list.style.left = leftDistance + '%';
+                });
+                btnNext.addEventListener('click', nextArrowEventHandler);
+                btnPrev.addEventListener('click', prevArrowEventHandler);
+        }
+        document.querySelector('div.figure_pagination').firstElementChild.innerText = currentTitle;
+}
+    let btnPrev = document.querySelector('a.btn_prev');
+
+    function prevArrowEventHandler() {
+        currentTitle--;
+        // 애니메이션 도중 click EventListner 중지
+        btnNext.removeEventListener('click',nextArrowEventHandler);
+        btnPrev.removeEventListener('click',prevArrowEventHandler);
+
+        if(currentTitle < 1) {
+            currentTitle = 2;
+            leftDistance = (promotionLength - 1) * -100;
+            titleImageList.forEach((list) => {
+            list.style.transitionDuration = '0s';
+            list.style.left = leftDistance + '%';
+            });
+            
+            // 이미지 위치를 초기화 시키고 애니메이션 실행
+            leftDistance += 100;
+            titleImageList.forEach((list) => {
+            	list.style.transitionDuration = '1s';
+            	list.style.left = leftDistance + '%';
+                });
+        	btnNext.addEventListener('click',nextArrowEventHandler);
+        	btnPrev.addEventListener('click', prevArrowEventHandler);
+        } else {
+            leftDistance += 100;
+                titleImageList.forEach((list) => {
+                list.style.left = leftDistance + '%';
+                });
+                // 애니메이션이 끝나면 click EventListner 활성화
+                btnNext.addEventListener('click',nextArrowEventHandler);
+                btnPrev.addEventListener('click', prevArrowEventHandler);
+        }
+        document.querySelector('div.figure_pagination').firstElementChild.innerText = currentTitle;
+    }
+    btnNext.addEventListener('click', nextArrowEventHandler);
+    btnPrev.addEventListener('click', prevArrowEventHandler);
 }
 
 function initComment(displayCommentInfo, totalComments) {
@@ -208,7 +305,8 @@ function initDetailPathTab(displayInfoResponse) {
 		
 		
 		
-		if(currentTab == 2 && clickedTab.className.indexOf('_detail') != -1){ // 첫번째 탭 클릭
+		if(currentTab == 2 && clickedTab.className.indexOf('_detail') != -1){ // 첫번째
+																				// 탭 클릭
 			currentTab = 1;
 			pathTab.classList.remove('active');
 			pathTab.firstElementChild.classList.remove('active');
@@ -219,7 +317,8 @@ function initDetailPathTab(displayInfoResponse) {
 			detailTab.classList.add('active');
 			detailTab.firstElementChild.classList.add('active');
 			
-		}else if(currentTab == 1 && clickedTab.className.indexOf('_path') != -1){ // 두번째 탭 클릭
+		}else if(currentTab == 1 && clickedTab.className.indexOf('_path') != -1){ // 두번째
+																					// 탭 클릭
 			currentTab = 2;
 			detailTab.classList.remove('active');
 			detailTab.firstElementChild.classList.remove('active');
@@ -233,7 +332,7 @@ function initDetailPathTab(displayInfoResponse) {
 
 	})
 }
-//Comment 더보기 버튼 설정
+// Comment 더보기 버튼 설정
 function initMoreCommentBtn(displayInfoId) {
 	 document.querySelector('.btn_review_more').setAttribute('href','review?id=' + displayInfoId);
 }
