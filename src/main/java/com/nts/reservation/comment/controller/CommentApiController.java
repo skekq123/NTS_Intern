@@ -2,7 +2,6 @@ package com.nts.reservation.comment.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,12 +15,13 @@ import com.nts.reservation.comment.service.CommentService;
 public class CommentApiController {
 	private CommentService commentServiceImpl;
 	
-	public CommentApiController(CommentService commentServiceImpl)
-	{
+	public CommentApiController(CommentService commentServiceImpl) {
 		this.commentServiceImpl = commentServiceImpl;
 	}
+
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Comment> getProduct(@RequestParam(name = "id", required = false, defaultValue = "0") int displayInfoId) {
+	public List<Comment> getProduct(
+			@RequestParam(name = "id", required = false, defaultValue = "0") int displayInfoId) {
 		return commentServiceImpl.getComments(displayInfoId);
 	}
 }
