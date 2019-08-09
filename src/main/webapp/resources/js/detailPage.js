@@ -87,6 +87,7 @@ function loadDisplayInfoCallback(responseData) {
 }
 function TitleSlide(addtionalDisplayInfo, TitleDisplayImage) {
 	//TODO : 슬라이드 부분 작성
+	
 }
 
 function initComment(displayCommentInfo, totalComments) {
@@ -172,7 +173,7 @@ function initDetailPathTab(displayInfoResponse) {
 	document.querySelector('p.in_dsc').innerText = displayInfo.productContent;
 	
 	// 오시는 길 - 이미지
-	//document.querySelector('.store_map').setAttribute('src', "resources" + displayInfoImage.saveFileName);
+	document.querySelector('.store_map').setAttribute('src', "resources/" + displayInfoImage.saveFileName);
 	
 	// 오시는 길 - 장소명
 	document.querySelector('.store_name').innetText = displayInfo.placeName;
