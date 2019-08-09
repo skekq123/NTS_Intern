@@ -82,6 +82,8 @@ function loadDisplayInfoCallback(responseData) {
     initComment(displayCommentInfo, displayCommentInfo.length);
     // Comment 더보기 버튼 설정
     initMoreCommentBtn(displayInfo.displayInfoId);
+    //상세정보, 오시는길
+    initDetailPathTab(displayInfoResponse);
 }
 function TitleSlide(addtionalDisplayInfo, TitleDisplayImage) {
 	//TODO : 슬라이드 부분 작성
@@ -161,7 +163,75 @@ function initDetailBtn() {
 		openBtn.style.display = 'none';
 	}
 }
+//
+function initDetailPathTab(displayInfoResponse) {
+	let displayInfo = displayInfoResponse["displayInfo"];
+	let displayInfoImage = displayInfoResponse["displayInfoImage"];
+	
+	// 소개 - 글
+	document.querySelector('p.in_dsc').innerText = displayInfo.productContent;
+	
+	// 오시는 길 - 이미지
+	//document.querySelector('.store_map').setAttribute('src', "resources" + displayInfoImage.saveFileName);
+	
+	// 오시는 길 - 장소명
+	document.querySelector('.store_name').innetText = displayInfo.placeName;
+	
+	// 오시는길 - 주소
+	let address = document.querySelector('.store_addr_wrap').querySelectorAll('p');
+	address[0].innerText = displayInfo.placeStreet;
+	address[1].querySelectorAll('span')[1].innerText = displayInfo.placeLot;
+	address[2].innerText = displayInfo.placeName;
+	
+	// 오시는 길 - 전화번호
+	let telephone = document.querySelector('.store_tel');
+	telephone.setAttribute('href', displayInfo.telephone);
+	telephone.innerText = displayInfo.telephone;
+	
+	// 상세 ~ 오시는길 전환하는 탭
+	let detailTab = document.querySelector('ul.info_tab_lst>._detail');
+	let detailBody = document.querySelector('.detail_area_wrap');
+	
+	let pathTab = document.querySelector('ul.info_tab_lst>._path');
+	let pathBody = document.querySelector('.detail_location');
+	
+	let currentTab = 1; // 1 : detail, 2 : path
+	document.querySelector('ul.info_tab_lst').addEventListener('click', evt=>{
+		let clickedTab = evt.target;
+		if(clickedTab.tagName === 'SPAN') {
+			clickedTab = clickedTab.parentElement.parentElement;
+		}
+		else if(clickedTab.tageName === 'A') {
+			clickedTab = clickedTab.parentElement;
+		}
+		
+		
+		
+		if(currentTab == 2 && clickedTab.className.indexOf('_detail') != -1){ // 첫번째 탭 클릭
+			currentTab = 1;
+			pathTab.classList.remove('active');
+			pathTab.firstElementChild.classList.remove('active');
+			
+			pathBody.classList.add('hide');
+			detailBody.classList.remove('hide');
+			
+			detailTab.classList.add('active');
+			detailTab.firstElementChild.classList.add('active');
+			
+		}else if(currentTab == 1 && clickedTab.className.indexOf('_path') != -1){ // 두번째 탭 클릭
+			currentTab = 2;
+			detailTab.classList.remove('active');
+			detailTab.firstElementChild.classList.remove('active');
+			
+			detailBody.classList.add('hide');
+			pathBody.classList.remove('hide');
+			
+			pathTab.classList.add('active');
+			pathTab.firstElementChild.classList.add('active');
+		}
 
+	})
+}
 //Comment 더보기 버튼 설정
 function initMoreCommentBtn(displayInfoId) {
 	 document.querySelector('.btn_review_more').setAttribute('href','review?id=' + displayInfoId);
