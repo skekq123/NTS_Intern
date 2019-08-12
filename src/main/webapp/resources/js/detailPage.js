@@ -84,18 +84,32 @@ function loadDisplayInfoCallback(responseData) {
     initMoreCommentBtn(displayInfo.displayInfoId);
     // 상세정보, 오시는길
     initDetailPathTab(displayInfoResponse);
+    
+    // 예매 버튼에 onclick 설정
+    let reserveBtn = document.querySelector('.bk_btn');
+    reserveBtn.setAttribute("onclick","location.href='reserve?id=" + getUrlParameter('id') + "'");
+
 }
 function TitleSlide(addtionalDisplayInfo, TitleDisplayImage) {
     let titleTemplate = document.querySelector('#bannerImage').innerText;
     let bindTitleTemplate = Handlebars.compile(titleTemplate);
     let titleContainer = document.querySelector('ul.detail_swipe');
-
-    titleContainer.innerHTML += bindTitleTemplate(addtionalDisplayInfo);
     
-    addtionalDisplayInfo.saveFileName = TitleDisplayImage;
-    titleContainer.innerHTML += bindTitleTemplate(addtionalDisplayInfo);
-
+	titleContainer.innerHTML += bindTitleTemplate(addtionalDisplayInfo);
     document.querySelector('div.store_details>p.dsc').innerHTML = addtionalDisplayInfo.productContent;
+   
+    let currentTitle = 2;
+    let titleImageList = document.querySelector('.visual_img');
+ 
+	let firstChild = titleImageList.firstElementChild;
+	let lastChild = titleImageList.lastElementChild;
+	titleImageList.insertAdjacentHTML('afterbegin', lastChild.cloneNode(true).outerHTML);
+	titleImageList.insertAdjacentHTML('beforeend', firstChild.cloneNode(true).outerHTML);
+	
+    let promotionLength = 4;
+    let leftDistance = -100;
+    let btnNext = document.querySelector('a.btn_nxt');
+    let btnPrev = document.querySelector('a.btn_prev');
     
     // next, prev 버튼 활성화
     document.querySelector('div.prev').style.display = '';
@@ -104,87 +118,52 @@ function TitleSlide(addtionalDisplayInfo, TitleDisplayImage) {
     document.querySelector('div.figure_pagination').firstElementChild.classList.remove('off');
     document.querySelector('div.figure_pagination').lastElementChild.innerText = '/ 2';
 
-    let currentTitle = 1;
-    let titleImageList = document.querySelectorAll('.visual_img > .item');
-    let promotionLength = titleImageList.length;
-    let leftDistance = 0;
-
-    let btnNext = document.querySelector('a.btn_nxt');
     
-    function nextArrowEventHandler() {
-        currentTitle++;
-        // 애니메이션 도중 click EventListner 중지
-        btnNext.removeEventListener('click',nextArrowEventHandler);
-        btnPrev.removeEventListener('click', prevArrowEventHandler);
-
-        if(currentTitle > 2) {
-            currentTitle = 1;
-            leftDistance -= 100;
-            
-            titleImageList.forEach((list) => {
-                list.style.left = leftDistance + '%';
-            });
-            
-            leftDistance = 0;
-            titleImageList.forEach((list) => {
-            list.style.transitionDuration = '0s';
-            list.style.left = leftDistance + '%';
-            });
-            
-            titleImageList.forEach((list) => {
-            list.style.transitionDuration = '1s';
-            });
-            // 애니메이션이 끝나면 click EventListner 활성화
-            btnNext.addEventListener('click', nextArrowEventHandler);
-            btnPrev.addEventListener('click', prevArrowEventHandler);
-        }
-        else {
-        	leftDistance -= 100;
-        	titleImageList.forEach((list) => {
-        		list.style.left = leftDistance + '%';
-                });
-                btnNext.addEventListener('click', nextArrowEventHandler);
-                btnPrev.addEventListener('click', prevArrowEventHandler);
-        }
-        document.querySelector('div.figure_pagination').firstElementChild.innerText = currentTitle;
-}
-    let btnPrev = document.querySelector('a.btn_prev');
-
-    function prevArrowEventHandler() {
-        currentTitle--;
-        // 애니메이션 도중 click EventListner 중지
-        btnNext.removeEventListener('click',nextArrowEventHandler);
-        btnPrev.removeEventListener('click',prevArrowEventHandler);
-
-        if(currentTitle < 1) {
-            currentTitle = 2;
-            leftDistance = (promotionLength - 1) * -100;
-            titleImageList.forEach((list) => {
-            list.style.transitionDuration = '0s';
-            list.style.left = leftDistance + '%';
-            });
-            
-            // 이미지 위치를 초기화 시키고 애니메이션 실행
-            leftDistance += 100;
-            titleImageList.forEach((list) => {
-            	list.style.transitionDuration = '1s';
-            	list.style.left = leftDistance + '%';
-                });
-        	btnNext.addEventListener('click',nextArrowEventHandler);
-        	btnPrev.addEventListener('click', prevArrowEventHandler);
-        } else {
-            leftDistance += 100;
-                titleImageList.forEach((list) => {
-                list.style.left = leftDistance + '%';
-                });
-                // 애니메이션이 끝나면 click EventListner 활성화
-                btnNext.addEventListener('click',nextArrowEventHandler);
-                btnPrev.addEventListener('click', prevArrowEventHandler);
-        }
-        document.querySelector('div.figure_pagination').firstElementChild.innerText = currentTitle;
-    }
     btnNext.addEventListener('click', nextArrowEventHandler);
     btnPrev.addEventListener('click', prevArrowEventHandler);
+    
+    titleImageList.style.left = leftDistance + '%';
+    titleImageList.style.transitionDuration = '1s';
+    
+    titleImageList.addEventListener("transitionend", function() {
+    	if (currentTitle >= promotionLength) {
+    		currentTitle = 2;
+    		leftDistance = -100;
+    		titleImageList.style.transitionDuration = '0s';
+    		titleImageList.style.left = leftDistance + '%';
+    	} else if (currentTitle <= 1) {
+    		currentTitle = 3;
+    		leftDistance = -200;
+    		titleImageList.style.transitionDuration = '0s';
+    		titleImageList.style.left = leftDistance + '%';
+    	}
+    	let pagination;
+    	if(currentTitle == 1 || currentTitle == 3) pagination = 2;
+    	else if(currentTitle == 2 || currentTitle == 4) pagination = 1;
+    	document.querySelector('div.figure_pagination').firstElementChild.innerText = pagination;
+    	btnNext.addEventListener('click', nextArrowEventHandler);
+        btnPrev.addEventListener('click', prevArrowEventHandler);
+	})
+    
+    function nextArrowEventHandler() {
+    	btnNext.removeEventListener('click', nextArrowEventHandler);
+    	btnPrev.removeEventListener('click', prevArrowEventHandler);
+    	
+    	titleImageList.style.transitionDuration = '1s';
+    	++currentTitle;
+    	leftDistance -= 100;
+    	titleImageList.style.left = leftDistance + '%';
+    }
+    
+    function prevArrowEventHandler() {
+    	btnNext.removeEventListener('click', nextArrowEventHandler);
+    	btnPrev.removeEventListener('click', prevArrowEventHandler);
+    	
+    	titleImageList.style.transitionDuration = '1s';
+    	--currentTitle;
+   		leftDistance += 100;
+   		titleImageList.style.left = leftDistance + '%';
+    }
 }
 
 function initComment(displayCommentInfo, totalComments) {
