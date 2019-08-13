@@ -170,14 +170,15 @@ function initComment(displayCommentInfo, totalComments) {
 
     if(totalComments <= commentViewSize){
         displayCommentInfo.forEach(comment => {
-            if(comment.commentImages != 0) {
+        	alert(comment.commentImages);
+            if(comment.commentImages.length != 0) {
                 comment.saveFileName = comment.commentImages[0].saveFileName;
             }
             commentContainer.innerHTML += bindCommentTemplate(comment);
         });
     } else {
         for(let i = 0; i < commentViewSize; ++i) {
-            if(displayCommentInfo[i].commentImages != 0) {
+            if(displayCommentInfo[i].commentImages.length != 0) {
                 displayCommentInfo[i].saveFileName = displayCommentInfo[i].commentImages[0].saveFileName;
             }
             commentContainer.innerHTML += bindCommentTemplate(displayCommentInfo[i]);
