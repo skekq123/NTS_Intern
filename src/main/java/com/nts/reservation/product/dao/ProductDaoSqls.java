@@ -35,5 +35,9 @@ public final class ProductDaoSqls {
 			+ "INNER JOIN file_info ON file_info.id = product_image.file_id "
 			+ "INNER JOIN product ON product_image.product_id = product.id "
 			+ "INNER JOIN display_info ON display_info.product_id = product.id "
-			+ "WHERE display_info.id = :displayInfoId;";
+			+ "WHERE display_info.id = :displayInfoId "
+			+ "AND (product_image.type = 'ma' "
+			+ "OR product_image.type = 'et') "
+			+ "ORDER BY product_image_id ASC "
+			+ "LIMIT 2;";
 }
