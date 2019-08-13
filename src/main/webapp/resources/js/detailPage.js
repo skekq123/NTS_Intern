@@ -49,25 +49,21 @@ function loadDisplayInfoCallback(responseData) {
     let TitleDisplayImage = "";
 // ma 타입의 이미지 정보를 displayInfo에 추가
 // et 타입의 이미지가 있다면 한장을 additionalDsiplayInfo에 추가
-    displayProductImages.forEach(image => {
-        if(image.type === 'ma') {
-            displayInfo.saveFileName = image.saveFileName;
-            TitleDisplayImage = image.saveFileName;
-        }
-        else if(image.type === 'et') {
-            isAddtionalDisplayImage = true;
-        }
-    });
+ 
+    let TitleSlideImageCount = 2;
+    let displayProductImageCount = displayProductImages.length;
+    if(displayProductImageCount >= TitleSlideImageCount) isAddtionalDisplayImage = true;
+    
+    displayInfo.saveFileName = displayProductImages[0].saveFileName;
+    TitleDisplayImage = displayProductImages[0].saveFileName;
+   
 // TitleImage 설정
     initTitleImage(displayInfo);
     initDetailBtn();
     
     if(isAddtionalDisplayImage) { // 추가적 사진이 있으면
         let addtionalDisplayInfo = displayInfoResponse["displayInfo"];
-        
-        displayProductImages.forEach(image => {
-        if(image.type === 'et') addtionalDisplayInfo.saveFileName = image.saveFileName;
-        });
+        addtionalDisplayInfo.saveFileName = displayProductImages[1].saveFileName;
         TitleSlide(addtionalDisplayInfo, TitleDisplayImage); 
     }
     
