@@ -25,7 +25,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	private CommentService commentServiceImpl;
 
 	@Override
-	public DisplayInfoResponse getDisplayInfos(int displayInfoId) {
+	public DisplayInfoResponse getDisplayInfo(int displayInfoId) {
 		DisplayInfoResponse displayInfoResponse = new DisplayInfoResponse();
 
 		DisplayInfo selectDisplayInfo = displayInfoDao.selectDisplayInfo(displayInfoId);

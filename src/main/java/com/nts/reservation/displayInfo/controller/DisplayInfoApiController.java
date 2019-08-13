@@ -20,6 +20,6 @@ public class DisplayInfoApiController {
 	@RequestMapping(value = "/{displayInfoId}", method = RequestMethod.GET)
 	public DisplayInfoResponse getDisplayInfo(@PathVariable("displayInfoId") int displayInfoId) {
 
-		return displayInfoServiceImpl.getDisplayInfos(displayInfoId);
+		return displayInfoServiceImpl.getDisplayInfo(displayInfoId);
 	}
 }
