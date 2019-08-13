@@ -9,7 +9,7 @@ import com.nts.reservation.displayInfo.dto.DisplayInfoResponse;
 import com.nts.reservation.displayInfo.service.DisplayInfoService;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/displayInfo")
 public class DisplayInfoApiController {
 	private DisplayInfoService displayInfoServiceImpl;
 

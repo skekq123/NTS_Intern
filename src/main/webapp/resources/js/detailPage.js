@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    requestAjax(loadDisplayInfoCallback, 'api/products/' + getUrlParameter('id'));
+    requestAjax(loadDisplayInfoCallback, 'api/displayInfo/' + getUrlParameter('id'));
 });
 
 function initTitleImage(displayInfo) {

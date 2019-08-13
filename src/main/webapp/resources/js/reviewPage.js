@@ -63,5 +63,5 @@ function loadCommentInfoCallback(commentsData) {
 // DOMContentLoaded 초기 설정
 document.addEventListener('DOMContentLoaded', function () {
     // DisplayInfo관련 설정 (averageScore, productDescription)
-    requestAjax(loadDisplayInfoCallback, 'products/' + getUrlParameter('id'));
+    requestAjax(loadDisplayInfoCallback, 'displayInfo/' + getUrlParameter('id'));
 });
