@@ -166,12 +166,13 @@ function TitleSlide(addtionalDisplayInfo, TitleDisplayImage) {
     }
 }
 
+const commentViewSize = 3;
 function initComment(displayCommentInfo, totalComments) {
     let commentTemplate = document.querySelector('#commentItem').innerText;
     let bindCommentTemplate = Handlebars.compile(commentTemplate);
     let commentContainer = document.querySelector('ul.list_short_review');
 
-    if(totalComments <= 3){
+    if(totalComments <= commentViewSize){
         displayCommentInfo.forEach(comment => {
             if(comment.commentImages != 0) {
                 comment.saveFileName = comment.commentImages[0].saveFileName;
@@ -179,7 +180,7 @@ function initComment(displayCommentInfo, totalComments) {
             commentContainer.innerHTML += bindCommentTemplate(comment);
         });
     } else {
-        for(let i = 0; i < 3; ++i) {
+        for(let i = 0; i < commentViewSize; ++i) {
             if(displayCommentInfo[i].commentImages != 0) {
                 displayCommentInfo[i].saveFileName = displayCommentInfo[i].commentImages[0].saveFileName;
             }
