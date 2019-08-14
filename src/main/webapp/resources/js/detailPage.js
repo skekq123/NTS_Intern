@@ -80,11 +80,6 @@ function loadDisplayInfoCallback(responseData) {
     initMoreCommentBtn(displayInfo.displayInfoId);
     // 상세정보, 오시는길
     initDetailPathTab(displayInfoResponse);
-    
-    // 예매 버튼에 onclick 설정
-    let reserveBtn = document.querySelector('.bk_btn');
-    reserveBtn.setAttribute("onclick","location.href='reserve?id=" + getUrlParameter('id') + "'");
-
 }
 function TitleSlide(addtionalDisplayInfo, TitleDisplayImage) {
     let titleTemplate = document.querySelector('#bannerImage').innerText;
