@@ -40,4 +40,12 @@ public final class ProductDaoSqls {
 			+ "OR product_image.type = 'et') "
 			+ "ORDER BY product_image_id ASC "
 			+ "LIMIT 2;";
+	public static final String SELECT_PRODUCT_PRICE = "SELECT product_price.create_date AS create_date, "
+			+ "product_price.discount_rate AS discount_rate, product_price.modify_date AS modify_date, "
+			+ "product_price.price AS price, product_price.price_type_name AS price_type_name, "
+			+ "product_price.product_id AS product_id, product_price.id AS product_price_id "
+			+ "FROM product_price "
+			+ "INNER JOIN product ON product.id = product_price.product_id "
+			+ "INNER JOIN display_info ON display_info.product_id = product.id "
+			+ "WHERE display_info.id = :displayInfoId;";
 }
