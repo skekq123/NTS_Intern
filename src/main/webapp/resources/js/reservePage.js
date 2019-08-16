@@ -25,7 +25,6 @@ let DateFormmater = function (date) {
 let generateRandom = function (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
 // Rest API로 서버로부터 해당 url의 json데이터를 가져옴 (GET)
 function requestAjax(callback, url) {
     let ajaxReq = new XMLHttpRequest();
@@ -59,6 +58,19 @@ function initDisplayInfo(displayInfoData) {
     // 관람시간
     let displayInfo = displayInfoData["displayInfo"];
     discription[1].innerText = displayInfo.openingHours.replace('/-/g', '<br>- ');
+    
+    // 요금
+    let prices = displayInfoData["productPrices"];
+    let priceTarget = discription[2];
+    let minPrice = 1000000;
+    prices.forEach(price => {
+        if (minPrice > price.price) minPrice = price.price;
+
+        priceTarget.innerText += mapPriceType.get(price.priceTypeName);
+        priceTarget.innerText += addCommaInNumber(price.price) + '원\r\n';
+    });
+
+    document.querySelector('.preview_txt_dsc').innerText = "₩ " + addCommaInNumber(minPrice) + " ~ ";
 }
 //Url의 name에 해당하는 Parameter 추출
 function getUrlParameter(name) {
@@ -73,6 +85,23 @@ function getUrlParameter(name) {
         }
     }
 }
+let mapPriceType = new Map([
+    ['A', '성인'],
+    ['Y', '청소년'],
+    ['B', '어린이'],
+    ['S', '세트'],
+    ['D', '장애인'],
+    ['C', '지역주민'],
+    ['E', '얼리버드'],
+    ['V', 'VIP'],
+    ['R', 'R석'],
+    ['D', '평일']
+]);
+//입력된 숫자에 3자리수마다 ,를 추가
+function addCommaInNumber(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 function loadDisplayInfoCallback(displayInfoData) {
     // 화면 상단 Display 설정
     initDisplayInfo(displayInfoData);
