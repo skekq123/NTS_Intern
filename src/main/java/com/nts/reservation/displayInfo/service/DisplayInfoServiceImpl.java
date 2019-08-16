@@ -46,7 +46,6 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 		displayInfoResponse.setComments(selectComments);
 		displayInfoResponse.setAverageScore(selectAverageScore);
 		displayInfoResponse.setProductPrices(selectProductPrices);
-		System.out.println(selectProductPrices);
 		return displayInfoResponse;
 	}
 }
