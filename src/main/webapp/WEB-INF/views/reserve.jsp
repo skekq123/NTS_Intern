@@ -32,7 +32,7 @@
                 <div class="group_visual">
                     <div class="container_visual" style="width: 414px;">
                         <ul class="visual_img">
-                            <li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src="https://ssl.phinf.net/naverbooking/20170217_264/1487312141947lTddT_JPEG/%B3%D7%C0%CC%B9%F6.jpg?type=ff1242_816"> <span class="img_bg"></span>
+                            <li class="item" style="width: 414px;"> <img alt="" class="img_thumb"> <span class="img_bg"></span>
                                 <div class="preview_txt">
                                     <h2 class="preview_txt_tit"></h2> <em class="preview_txt_dsc">₩12,000 ~ </em><em class="preview_txt_dsc">2017.2.17.(금)~2017.4.18.(화), 잔여티켓 2769매</em> </div>
                             </li>
@@ -41,7 +41,7 @@
                 </div>
                 <div class="section_store_details">
                     <div class="store_details">
-                        <h3 class="in_tit"> 장소</h3>
+                        <h3 class="in_tit">장소</h3>
                         <p class="dsc"></p>
                         <h3 class="in_tit">관람시간</h3>
                         <p class="dsc"> </p>
@@ -122,9 +122,9 @@
 			<div class="count_control">
 				<!-- [D] 수량이 최소 값이 일때 ico_minus3, count_control_input에 disabled 각각 추가, 수량이 최대 값일 때는 ico_plus3에 disabled 추가 -->
 				<div class="clearfix">
-					<a href="#" class="btn_plus_minus spr_book2 ico_minus3 disabled" title="빼기"> </a> 
+					<a class="btn_plus_minus spr_book2 ico_minus3 disabled" title="빼기"> </a> 
 						<input type="tel" class="count_control_input disabled" value="0" readonly title="수량">
-					<a href="#" class="btn_plus_minus spr_book2 ico_plus3" title="더하기"></a>
+					<a class="btn_plus_minus spr_book2 ico_plus3" title="더하기"></a>
 				</div>
 				<!-- [D] 금액이 0 이상이면 individual_price에 on_color 추가 -->
 				<div class="individual_price"><span class="total_price">0</span><span class="price_type">원</span></div>
