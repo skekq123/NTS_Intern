@@ -13,6 +13,7 @@ import com.nts.reservation.displayInfo.dto.DisplayInfoImage;
 import com.nts.reservation.displayInfo.dto.DisplayInfoResponse;
 import com.nts.reservation.product.dao.ProductDao;
 import com.nts.reservation.product.dto.ProductImage;
+import com.nts.reservation.product.dto.ProductPrice;
 
 @Service
 public class DisplayInfoServiceImpl implements DisplayInfoService {
@@ -32,6 +33,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 		DisplayInfoImage selectDisplayInfoImage = displayInfoDao.selectDisplayInfoImage(displayInfoId);
 		List<ProductImage> selectProductImages = productDao.selectProductImages(displayInfoId);
 		List<Comment> selectComments = commentServiceImpl.getComments(displayInfoId);
+		List<ProductPrice> selectProductPrices = productDao.selectProductPrices(displayInfoId);
 		double selectAverageScore = 0;
 
 		// 댓글이 있으면 평균 점수 가져오기
@@ -43,6 +45,8 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 		displayInfoResponse.setDisplayInfo(selectDisplayInfo);
 		displayInfoResponse.setComments(selectComments);
 		displayInfoResponse.setAverageScore(selectAverageScore);
+		displayInfoResponse.setProductPrices(selectProductPrices);
+		System.out.println(selectProductPrices);
 		return displayInfoResponse;
 	}
 }

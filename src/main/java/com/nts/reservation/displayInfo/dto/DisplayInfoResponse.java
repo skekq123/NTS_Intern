@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.nts.reservation.comment.dto.Comment;
 import com.nts.reservation.product.dto.ProductImage;
+import com.nts.reservation.product.dto.ProductPrice;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,4 +17,5 @@ public class DisplayInfoResponse {
 	private DisplayInfo displayInfo;
 	private List<Comment> Comments;
 	private double averageScore;
+	private List<ProductPrice> productPrices;
 }
