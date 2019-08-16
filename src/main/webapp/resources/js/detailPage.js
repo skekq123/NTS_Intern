@@ -84,7 +84,7 @@ function loadDisplayInfoCallback(responseData) {
     // 예매 버튼
     let reserveBtn = document.querySelector('.bk_btn');
     reserveBtn.addEventListener("click", () => {
-    	location.href = "/reservation/reserve?id=" + getUrlParameter('id') + "'";
+    	location.href = "/reservation/reserve?id=" + getUrlParameter('id');
     });
     
 }
