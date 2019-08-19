@@ -157,6 +157,7 @@ TicketObj.prototype.addMinusClickEvent = function () {
         }
         productPricesList[index].count = parseInt(this.parentElement.children[1].value);
         changePriceEvent();
+        checkInputDataComplete();
     });
 }
 
@@ -172,20 +173,24 @@ TicketObj.prototype.addPlusClickEvent = function () {
 
         productPricesList[index].count = parseInt(this.parentElement.children[1].value);
         changePriceEvent();
+        checkInputDataComplete();
     });
 }
 
+let reserveCount = 0;
 //금액 정보를 갱신해주는 Event
 let changePriceEvent = function () {
     let totalCount = 0;
+    reserveCount = 0;
     document.querySelectorAll('.count_control_input').forEach((ticketItem, index) => {
         let itemPrice = ticketItem.value * ticketItems[index].price;
 
         let ticketItemTotalPrice = ticketItem.parentElement.parentElement.children[1].children[0];
         ticketItemTotalPrice.innerText = addCommaInNumber(itemPrice);
-        
+        reserveCount += Number(ticketItem.value);
         totalCount += Number(ticketItem.value);
     });
+   
     document.querySelector('.selected').innerText = DateFormmater(DateObj.randomDate) + ', 총 ' + totalCount + '매';
 }
 function initAgreementBtn() {
@@ -210,6 +215,30 @@ function initAgreementBtn() {
         });
     });
 }
+function checkInputDataComplete() {
+    let name = document.querySelector('input.text').value;
+    let tel = document.querySelector('input.tel').value;
+    let email = document.querySelector('input.email').value;
+    let agreement = document.querySelector('#chk3').checked;
+    let bookingBtn = document.querySelector('.bk_btn_wrap');
+    
+    // name, tel, email, agreement가 모두 check되고, 하나라도 골랐을 경우 bookingBtn 활성화
+    if (name != '' & tel != '' & email != '' & agreement & reserveCount > 0) {
+        bookingBtn.classList.remove('disable');
+    } else {
+        bookingBtn.classList.add('disable');
+    }
+}
+function initInputDataForm() {
+    let inputForm = document.querySelector('.form_horizontal');
+
+    let agreementForm = document.querySelector('#chk3');
+
+    agreementForm.addEventListener('click', function () {
+        checkInputDataComplete();
+    })
+    changePriceEvent();
+}
 function loadDisplayInfoCallback(displayInfoData) {
     // 화면 상단 Display 설정
     initDisplayInfo(displayInfoData);
@@ -228,5 +257,8 @@ document.addEventListener('DOMContentLoaded', function () {
     
     // 약관 button 설정
     initAgreementBtn();
+    
+    //데이터 form 설정
+    initInputDataForm();
     requestAjax(loadDisplayInfoCallback, 'api/displayInfo/' + getUrlParameter('id'));
 });
