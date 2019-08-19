@@ -16,6 +16,7 @@ let DateObj = {
 		this.randomDate = date;
 	}
 }
+
 //date형식을 2019.08.20.(화)과 같은 형식의 String 타입으로 변환
 let DateFormmater = function (date) {
     let week = new Array('일', '월', '화', '수', '목', '금', '토');
@@ -24,6 +25,14 @@ let DateFormmater = function (date) {
 //  입력된 min ~ max에서 랜덤 값을 뽑아내 줌
 let generateRandom = function (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+function TicketObj(target, index, price) {
+    this.target = target;
+    this.index = index;
+    this.price = price;
+
+    target[0].classList.add('minusBtn' + index);
+    target[1].classList.add('plusBtn' + index);
 }
 // Rest API로 서버로부터 해당 url의 json데이터를 가져옴 (GET)
 function requestAjax(callback, url) {
@@ -85,6 +94,7 @@ function getUrlParameter(name) {
         }
     }
 }
+
 let mapPriceType = new Map([
     ['A', '성인'],
     ['Y', '청소년'],
@@ -101,10 +111,27 @@ let mapPriceType = new Map([
 function addCommaInNumber(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+function initTickectBox(productPrices) {
+    let ticketTemplate = document.querySelector('#ticketItem').innerText;
+    let bindticketTemplate = Handlebars.compile(ticketTemplate);
+    let ticketContainer = document.querySelector('div.ticket_body');
+
+    let ticketItems = new Object();
+    productPrices.forEach((price, index) => {
+        price.priceTypeName = mapPriceType.get(price.priceTypeName);
+        let itemPrice = price.price;
+        price.price = addCommaInNumber(itemPrice);
+        ticketContainer.innerHTML += bindticketTemplate(price);
+    });
+}
 
 function loadDisplayInfoCallback(displayInfoData) {
     // 화면 상단 Display 설정
     initDisplayInfo(displayInfoData);
+    
+    let productPrices = displayInfoData["productPrices"];
+    // 화면 중단 TicketBox 설정
+    initTickectBox(productPrices);
 }
 // DOMContentLoaded 초기 설정
 document.addEventListener('DOMContentLoaded', function () {
