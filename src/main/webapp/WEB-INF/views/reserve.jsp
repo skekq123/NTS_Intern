@@ -129,9 +129,9 @@
 				<!-- [D] 금액이 0 이상이면 individual_price에 on_color 추가 -->
 				<div class="individual_price"><span class="total_price">0</span><span class="price_type">원</span></div>
 			</div>
-			<div class="qty_info_icon"> <strong class="product_amount"> <span>성인</span> </strong> 
-				<strong class="product_price"> <span class="price">10,200</span> <span class="price_type">원</span> </strong> 
-				<em class="product_dsc">10,200원 (15% 할인가)</em> 
+			<div class="qty_info_icon"> <strong class="product_amount"> <span>{{priceTypeName}}</span> </strong> 
+				<strong class="product_price"> <span class="price">{{price}}</span> <span class="price_type">원</span> </strong> 
+				<em class="product_dsc">{{price}}원 ({{discountRate}}% 할인가)</em> 
 			</div>
 		</div>
 	</script>
