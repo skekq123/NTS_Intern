@@ -34,6 +34,18 @@ function TicketObj(target, index, price) {
     target[0].classList.add('minusBtn' + index);
     target[1].classList.add('plusBtn' + index);
 }
+function ReservePrices(count, productPriceId) {
+    this.count = count;
+    this.productPriceId = parseInt(productPriceId);
+};
+
+let productPricesList = new Array();
+function addReservePrices(productPrices){
+
+    productPrices.forEach(productPrice=>{
+        productPricesList.push(new ReservePrices(0, productPrice.productPriceId));
+    });
+}
 // Rest API로 서버로부터 해당 url의 json데이터를 가져옴 (GET)
 function requestAjax(callback, url) {
     let ajaxReq = new XMLHttpRequest();
@@ -111,20 +123,67 @@ let mapPriceType = new Map([
 function addCommaInNumber(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+let ticketItems = new Object();
 function initTickectBox(productPrices) {
     let ticketTemplate = document.querySelector('#ticketItem').innerText;
     let bindticketTemplate = Handlebars.compile(ticketTemplate);
     let ticketContainer = document.querySelector('div.ticket_body');
 
-    let ticketItems = new Object();
     productPrices.forEach((price, index) => {
         price.priceTypeName = mapPriceType.get(price.priceTypeName);
         let itemPrice = price.price;
         price.price = addCommaInNumber(itemPrice);
         ticketContainer.innerHTML += bindticketTemplate(price);
+        ticketItems[index] = new TicketObj(ticketContainer.lastElementChild.querySelectorAll('.btn_plus_minus'), index, itemPrice);
+    });
+    
+    productPrices.forEach((price, index) => {
+    	ticketItems[index].addMinusClickEvent();
+    	ticketItems[index].addPlusClickEvent();
     });
 }
 
+TicketObj.prototype.addMinusClickEvent = function () {
+    let index = this.index;
+    document.querySelector('.minusBtn' + index).addEventListener('click', function () {
+        if (this.parentElement.children[1].value in ["1", "0"]) {
+            this.parentElement.querySelector('.ico_minus3').classList.add('disabled');
+            this.parentElement.querySelector('.count_control_input').classList.add('disabled');
+            this.parentElement.parentElement.querySelector('.individual_price').classList.remove('on_color');
+            this.parentElement.children[1].setAttribute('value', "0");
+        } else {
+            this.parentElement.children[1].setAttribute('value', String(Number(this.parentElement.children[1].value) - 1));
+        }
+        productPricesList[index].count = parseInt(this.parentElement.children[1].value);
+        changePriceEvent();
+    });
+}
+
+TicketObj.prototype.addPlusClickEvent = function () {
+    let index = this.index;
+    document.querySelector('.plusBtn' + index).addEventListener('click', function () {
+        if (this.parentElement.children[1].value === "0") {
+            this.parentElement.querySelector('.ico_minus3').classList.remove('disabled');
+            this.parentElement.querySelector('.count_control_input').classList.remove('disabled');
+            this.parentElement.parentElement.querySelector('.individual_price').classList.add('on_color');
+        }
+        this.parentElement.children[1].setAttribute('value', String(Number(this.parentElement.children[1].value) + 1));
+
+        productPricesList[index].count = parseInt(this.parentElement.children[1].value);
+        changePriceEvent();
+    });
+}
+
+//금액 정보를 갱신해주는 Event
+let changePriceEvent = function () {
+    let totalCount = 0;
+    document.querySelectorAll('.count_control_input').forEach((ticketItem, index) => {
+        let itemPrice = ticketItem.value * ticketItems[index].price;
+
+        let ticketItemTotalPrice = ticketItem.parentElement.parentElement.children[1].children[0];
+        ticketItemTotalPrice.innerText = addCommaInNumber(itemPrice);
+    });
+}
 function loadDisplayInfoCallback(displayInfoData) {
     // 화면 상단 Display 설정
     initDisplayInfo(displayInfoData);
@@ -132,6 +191,9 @@ function loadDisplayInfoCallback(displayInfoData) {
     let productPrices = displayInfoData["productPrices"];
     // 화면 중단 TicketBox 설정
     initTickectBox(productPrices);
+    
+    // ReservePrices List 추가
+    addReservePrices(productPrices);
 }
 // DOMContentLoaded 초기 설정
 document.addEventListener('DOMContentLoaded', function () {
