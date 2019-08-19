@@ -141,6 +141,7 @@ function initTickectBox(productPrices) {
     	ticketItems[index].addMinusClickEvent();
     	ticketItems[index].addPlusClickEvent();
     });
+    document.querySelector('.selected').innerText = DateFormmater(DateObj.randomDate) + ', 총 ' + 0 + '매';
 }
 
 TicketObj.prototype.addMinusClickEvent = function () {
@@ -182,7 +183,10 @@ let changePriceEvent = function () {
 
         let ticketItemTotalPrice = ticketItem.parentElement.parentElement.children[1].children[0];
         ticketItemTotalPrice.innerText = addCommaInNumber(itemPrice);
+        
+        totalCount += Number(ticketItem.value);
     });
+    document.querySelector('.selected').innerText = DateFormmater(DateObj.randomDate) + ', 총 ' + totalCount + '매';
 }
 function loadDisplayInfoCallback(displayInfoData) {
     // 화면 상단 Display 설정
