@@ -188,6 +188,28 @@ let changePriceEvent = function () {
     });
     document.querySelector('.selected').innerText = DateFormmater(DateObj.randomDate) + ', 총 ' + totalCount + '매';
 }
+function initAgreementBtn() {
+    let agreementTarget = document.querySelectorAll('.btn_agreement');
+
+    // 약관 보기/접기 토글 설정
+    agreementTarget.forEach(target => {
+        target.addEventListener('click', function () {
+            if (target.tagName === 'I' || target.tagName === 'SPAN') {
+                target = target.parentElement;
+            }
+
+            if (target.children[0].innerText === "보기") {
+                target.parentElement.classList.add('open');
+                target.children[0].innerText = "접기";
+            } else {
+                target.parentElement.classList.remove('open');
+                target.children[0].innerText = "보기";
+            }
+
+
+        });
+    });
+}
 function loadDisplayInfoCallback(displayInfoData) {
     // 화면 상단 Display 설정
     initDisplayInfo(displayInfoData);
@@ -203,5 +225,8 @@ function loadDisplayInfoCallback(displayInfoData) {
 document.addEventListener('DOMContentLoaded', function () {
     // 현재시간 설정
     DateObj.setDate();
+    
+    // 약관 button 설정
+    initAgreementBtn();
     requestAjax(loadDisplayInfoCallback, 'api/displayInfo/' + getUrlParameter('id'));
 });
