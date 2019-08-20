@@ -230,7 +230,7 @@ function checkInputDataComplete() {
     let bookingBtn = document.querySelector('.bk_btn_wrap');
     
     // name, tel, email, agreement가 모두 check되고, 하나라도 골랐을 경우 bookingBtn 활성화
-    if (name != '' & tel != '' & email != '' & agreement & reserveCount > 0) {
+    if (name != '' && tel != '' && email != '' && agreement && reserveCount > 0) {
         bookingBtn.classList.remove('disable');
     } else {
         bookingBtn.classList.add('disable');
