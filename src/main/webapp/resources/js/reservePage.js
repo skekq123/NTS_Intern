@@ -30,40 +30,42 @@ function TicketObj(target, index, price) {
     this.target = target;
     this.index = index;
     this.price = price;
-    this.addMinusClickEvent = function () {
-        let index = this.index;
-        document.querySelector('.minusBtn' + index).addEventListener('click', function () {
-            if (this.parentElement.children[1].value in ["1", "0"]) {
-                this.parentElement.querySelector('.ico_minus3').classList.add('disabled');
-                this.parentElement.querySelector('.count_control_input').classList.add('disabled');
-                this.parentElement.parentElement.querySelector('.individual_price').classList.remove('on_color');
-                this.parentElement.children[1].setAttribute('value', "0");
-            } else {
-                this.parentElement.children[1].setAttribute('value', String(Number(this.parentElement.children[1].value) - 1));
-            }
-            productPricesList[index].count = parseInt(this.parentElement.children[1].value);
-            changePriceEvent();
-            checkInputDataComplete();
-        });
-    }
-    this.addPlusClickEvent = function () {
-        let index = this.index;
-        document.querySelector('.plusBtn' + index).addEventListener('click', function () {
-            if (this.parentElement.children[1].value === "0") {
-                this.parentElement.querySelector('.ico_minus3').classList.remove('disabled');
-                this.parentElement.querySelector('.count_control_input').classList.remove('disabled');
-                this.parentElement.parentElement.querySelector('.individual_price').classList.add('on_color');
-            }
-            this.parentElement.children[1].setAttribute('value', String(Number(this.parentElement.children[1].value) + 1));
-
-            productPricesList[index].count = parseInt(this.parentElement.children[1].value);
-            changePriceEvent();
-            checkInputDataComplete();
-        });
-    }
     
     target[0].classList.add('minusBtn' + index);
     target[1].classList.add('plusBtn' + index);
+}
+TicketObj.prototype = {
+		addPlusClickEvent : function () {
+	        let index = this.index;
+	        document.querySelector('.plusBtn' + index).addEventListener('click', function () {
+	            if (this.parentElement.children[1].value === "0") {
+	                this.parentElement.querySelector('.ico_minus3').classList.remove('disabled');
+	                this.parentElement.querySelector('.count_control_input').classList.remove('disabled');
+	                this.parentElement.parentElement.querySelector('.individual_price').classList.add('on_color');
+	            }
+	            this.parentElement.children[1].setAttribute('value', String(Number(this.parentElement.children[1].value) + 1));
+
+	            productPricesList[index].count = parseInt(this.parentElement.children[1].value);
+	            changePriceEvent();
+	            checkInputDataComplete();
+	        });
+	    }, 
+	    addMinusClickEvent : function () {
+	        let index = this.index;
+	        document.querySelector('.minusBtn' + index).addEventListener('click', function () {
+	            if (this.parentElement.children[1].value in ["1", "0"]) {
+	                this.parentElement.querySelector('.ico_minus3').classList.add('disabled');
+	                this.parentElement.querySelector('.count_control_input').classList.add('disabled');
+	                this.parentElement.parentElement.querySelector('.individual_price').classList.remove('on_color');
+	                this.parentElement.children[1].setAttribute('value', "0");
+	            } else {
+	                this.parentElement.children[1].setAttribute('value', String(Number(this.parentElement.children[1].value) - 1));
+	            }
+	            productPricesList[index].count = parseInt(this.parentElement.children[1].value);
+	            changePriceEvent();
+	            checkInputDataComplete();
+	        });
+	    }
 }
 function ReservePrices(count, productPriceId) {
     this.count = count;
