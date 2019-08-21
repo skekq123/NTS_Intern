@@ -70,9 +70,44 @@ function addExtraData(data) {
     data.totalPrice = addCommaInNumber(data.totalPrice);
     data.reservationDate = DateFormmater(new Date(Date.parse(data.reservationDate.replace('-', '/', 'g'))));
 }
+function initCancelBtn() {
+	let popupTarget = document.querySelector('.popup_booking_wrapper');
+	
+	document.querySelector('li.confirmed').addEventListener('click', function (evt) {
+		let target = evt.target;
+		
+		if(target.tagName === 'span') target = target.parentElement;
+		if(target.className === 'btn') {
+			popupTarget.style.display = 'block';
+			let id = target.parentElement.parentElement.parentElement.querySelector('.reserveId').innerText;
+			let title = target.parentElement.parentElement.parentElement.querySelector('.tit').innerText;
+			let date = target.parentElement.parentElement.parentElement.querySelector('.item_dsc').innerText;
+			//임시 test용 입니다.
+			let email = "skekq123@naver.com";
+			document.querySelector('.pop_tit').children[0].innerText = title;
+			document.querySelector('.pop_tit').children[1].innerText = date;
+			
+			document.querySelector('.btn_green').addEventListener('click', function() {
+				let reserveRequest = JSON.stringify(new ReserveParam(id, email));
+				requestPostAjax('api/update', reserveRequest);
+				popupTarget.style.display = 'none';
+			})
+		}
+	});
+	
+	document.querySelector('.popup_btn_close').addEventListener('click', function() {
+		popupTarget.style.display = 'none';
+	});
+	document.querySelector('.btn_gray').addEventListener('click', function() {
+		popupTarget.style.display = 'none';
+	});
+}
+
 // DOMContentLoaded 초기 설정
 document.addEventListener('DOMContentLoaded', function () {
     // 임시로 이메일값 선언 (로그인 구현 후, 로그인 정보를 통해 이메일값을 가져올 예정)
 	let email = "skekq123@naver.com";
     requestAjax(initDisplayInfo, 'api/reservations?reservationEmail=' + email);
+    
+    initCancelBtn();
 });
