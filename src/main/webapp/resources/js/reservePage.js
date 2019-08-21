@@ -332,6 +332,8 @@ function initBookingBtn(displayInfoData) {
             let reserveRequest = JSON.stringify(new ReserveRequest(displayInfoId, reservePrices, productId, name, tel, email));
 
             requestPostAjax('api/reserve', reserveRequest);
+            alert("예약되었습니다!");
+            location.href = "/reservation";
         }
     });
 }
