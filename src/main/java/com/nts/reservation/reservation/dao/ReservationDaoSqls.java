@@ -35,4 +35,9 @@ public class ReservationDaoSqls {
 			+ "WHERE reservation_info.reservation_email = :reservationEmail "
 			+ "AND reservation_info.product_id = :productId "
 			+ "AND reservation_info.id = :reservationInfoId;";
+		
+		public static final String UPDATE_RESERVE_INFO = "UPDATE reservation_info "
+			+ "SET cancel_flag = 1 "
+			+ "WHERE reservation_info.id = :reservationInfoId "
+			+ "AND reservation_info.reservation_email = :reservationEmail;";
 }
