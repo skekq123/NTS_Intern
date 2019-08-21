@@ -31,3 +31,29 @@ function requestPostAjax(url, param) {
 	ajaxReq.responseType = 'json';
 	ajaxReq.send(param);
 }
+//입력된 숫자에 3자리수마다 ,를 추가
+function addCommaInNumber(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+//date형식을 2019.08.20.(화)과 같은 형식의 String 타입으로 변환
+let DateFormmater = function (date) {
+  let week = new Array('일', '월', '화', '수', '목', '금', '토');
+  return date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate() + ".(" + week[date.getDay()] + ")";
+}
+//입력된 min ~ max에서 랜덤 값을 뽑아내 줌
+let generateRandom = function (min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+//date 형식 sql 타입으로 변환
+Date.prototype.toMysqlFormat = function() {
+	return this.getUTCFullYear() + "-" + twoDigits(1 + this.getUTCMonth()) + "-" + twoDigits(this.getUTCDate()) 
+	+ " " + twoDigits(this.getUTCHours()) + ":" + twoDigits(this.getUTCMinutes()) + ":" + twoDigits(this.getUTCSeconds());
+}
+function twoDigits(d) {
+	let result;
+    if(0 <= d && d < 10) result =  "0" + d.toString();
+    else result = d.toString();
+    
+    return result;
+}

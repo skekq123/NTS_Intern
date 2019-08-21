@@ -16,16 +16,6 @@ let DateObj = {
 		this.randomDate = date;
 	}
 }
-
-//date형식을 2019.08.20.(화)과 같은 형식의 String 타입으로 변환
-let DateFormmater = function (date) {
-    let week = new Array('일', '월', '화', '수', '목', '금', '토');
-    return date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate() + ".(" + week[date.getDay()] + ")";
-}
-//  입력된 min ~ max에서 랜덤 값을 뽑아내 줌
-let generateRandom = function (min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 function TicketObj(target, index, price) {
     this.target = target;
     this.index = index;
@@ -127,10 +117,6 @@ let mapPriceType = new Map([
     ['R', 'R석'],
     ['D', '평일']
 ]);
-//입력된 숫자에 3자리수마다 ,를 추가
-function addCommaInNumber(number) {
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
 let ticketItems = new Object();
 function initTickectBox(productPrices) {
     let ticketTemplate = document.querySelector('#ticketItem').innerText;
@@ -268,18 +254,6 @@ function ReserveRequest(displayInfoId, prices, productId, reservationName, reser
     this.reservationTelephone = reservationTelephone;
     this.reservationEmail = reservationEmail;
     this.reservationYearMonthDay = DateObj.randomDate.toMysqlFormat();
-}
-//date 형식 sql 타입으로 변환
-Date.prototype.toMysqlFormat = function() {
-	return this.getUTCFullYear() + "-" + twoDigits(1 + this.getUTCMonth()) + "-" + twoDigits(this.getUTCDate()) 
-	+ " " + twoDigits(this.getUTCHours()) + ":" + twoDigits(this.getUTCMinutes()) + ":" + twoDigits(this.getUTCSeconds());
-}
-function twoDigits(d) {
-	let result;
-    if(0 <= d && d < 10) result =  "0" + d.toString();
-    else result = d.toString();
-    
-    return result;
 }
 function initBookingBtn(displayInfoData) {
     let bookingBtn = document.querySelector('.bk_btn_wrap');
