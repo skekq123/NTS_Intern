@@ -31,4 +31,11 @@ public class ReservationDao {
 		return keyHolder.getKey().intValue();
 	}
 
+	public int insertReservationPrice(int productPriceId, int reservationInfoId, int count) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("productPriceId", productPriceId);
+		params.addValue("reservationInfoId", reservationInfoId);
+		params.addValue("count", count);
+		return jdbc.update(ReservationDaoSqls.INSERT_RESERVE_PRICE, params);
+	}
 }

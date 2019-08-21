@@ -10,4 +10,8 @@ public class ReservationDaoSqls {
 			+ "INNER JOIN product AS p ON d.product_id = p.id "
 			+ "WHERE d.id = :displayInfoId "
 			+ "GROUP BY p.id;";
+		
+		public static final String INSERT_RESERVE_PRICE = "INSERT INTO reservation_info_price( "
+			+ "reservation_info_id, product_price_id, count) "
+			+ "VALUES( :reservationInfoId, :productPriceId, :count);";
 }

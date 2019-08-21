@@ -10,6 +10,7 @@ import com.nts.reservation.reservation.dto.ReservationParam;
 public class ReservationServiceImpl implements ReservationService {
 	@Autowired
 	private ReservationDao reservationDao;
+
 	@Override
 	public boolean postReserve(ReservationParam reservationParam) {
 		int reservationInfoId = reservationDao.insertReservation(reservationParam);
@@ -17,6 +18,9 @@ public class ReservationServiceImpl implements ReservationService {
 		if (reservationInfoId == 0) {
 			return false;
 		}
+		reservationParam.getPrices().forEach(price -> {
+			if(price.getCount() != 0) reservationDao.insertReservationPrice(price.getProductPriceId(), reservationInfoId, price.getCount());
+		});
 		return true;
 	}
 }
