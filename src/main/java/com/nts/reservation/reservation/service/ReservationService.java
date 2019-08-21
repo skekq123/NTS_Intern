@@ -7,4 +7,6 @@ public interface ReservationService {
 	boolean postReserve(ReservationParam reservationParam);
 	
 	ReservationInfoResponse getReservationInfoResponse(String reservationEmail);
+	
+	boolean updateReserve(int reservationInfoId, String reservationEmail);
 }	
