@@ -1,27 +1,3 @@
-function requestAjax(callback, url) {
-	let ajaxReq = new XMLHttpRequest();
-	ajaxReq.callback = callback;
-	ajaxReq.addEventListener('load', evt => {
-		callback(evt.target.response)
-	});
-	ajaxReq.open('GET', 'api/' + url);
-	ajaxReq.responseType = 'json';
-	ajaxReq.send();
-}
-
-function getUrlParameter(name) {
-	let params = location.href.split('?')[1].split('&');
-	for (let i = 0; i < params.length; i++) {
-		let paramSplited = params[i].split('=');
-		let paramName = paramSplited[0];
-		let paramValue = paramSplited[1];
-
-		if (paramName === name) {
-			return paramValue;
-		}
-	}
-}
-
 function loadDisplayInfoCallback(displayInfoData) {
     let averageScore = displayInfoData.averageScore;
     productDescription = displayInfoData['displayInfo'].productDescription;

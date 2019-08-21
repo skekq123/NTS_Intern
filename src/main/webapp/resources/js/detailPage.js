@@ -17,29 +17,6 @@ function initTitleImage(displayInfo) {
 
     document.querySelector('div.figure_pagination').firstElementChild.classList.add('off');
 }
-// Url의 name에 해당하는 Parameter 추출
-function getUrlParameter(name) {
-	let params = location.href.split('?')[1].split('&');
-	for (let i = 0; i < params.length; i++) {
-		let paramSplited = params[i].split('=');
-		let paramName = paramSplited[0];
-		let paramValue = paramSplited[1];
-
-		if (paramName === name) {
-			return paramValue;
-		}
-	}
-}
-function requestAjax(callback, url) {
-	let Req = new XMLHttpRequest();
-	Req.callback = callback;
-	Req.addEventListener('load', evt => {
-		callback(evt.target.response)
-	});
-	Req.open('GET', url);
-	Req.responseType = 'json';
-	Req.send();
-}
 function loadDisplayInfoCallback(responseData) {
     let displayInfoResponse = responseData;
     let displayInfo = displayInfoResponse["displayInfo"];

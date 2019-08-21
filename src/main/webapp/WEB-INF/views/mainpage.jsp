@@ -133,6 +133,7 @@
         </li>
     </script>
     <script type="text/javascript" src="resources/js/mainPage.js"></script>
+    <script type="text/javascript" src="resources/js/common.js"></script>
 </body>
 
 </html>

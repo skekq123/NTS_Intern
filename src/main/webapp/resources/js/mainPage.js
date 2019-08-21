@@ -45,17 +45,6 @@ function setTabButton() {
 	});
 
 }
-
-function requestAjax(callback, url) {
-	let Req = new XMLHttpRequest();
-	Req.callback = callback;
-	Req.addEventListener('load', evt => {
-		callback(evt.target.response)
-	});
-	Req.open('GET', url);
-	Req.responseType = 'json';
-	Req.send();
-}
 function makeProductApiUrl(categoryId, start) {
 	return 'api/product?categoryId=' + categoryId + '&start=' + start;
 }

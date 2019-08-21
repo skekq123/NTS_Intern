@@ -78,6 +78,7 @@
     	
  		<script type="text/javascript" src="resources/util/handlebars-v4.1.2.js"></script>
    		<script type="text/javascript" src="resources/js/reviewPage.js"></script>
+   		<script type="text/javascript" src="resources/js/common.js"></script>
 </body>
 
 </html>
