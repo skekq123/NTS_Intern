@@ -90,6 +90,7 @@ function initCancelBtn() {
 			document.querySelector('.btn_green').addEventListener('click', function() {
 				let reserveRequest = JSON.stringify(new ReserveParam(id, email));
 				requestPostAjax('api/update', reserveRequest);
+				location.href = '/reservation/myreservation';
 				popupTarget.style.display = 'none';
 			})
 		}
