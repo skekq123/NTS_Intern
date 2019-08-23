@@ -82,8 +82,8 @@ function initCancelBtn() {
 			let id = target.parentElement.parentElement.parentElement.querySelector('.reserveId').innerText;
 			let title = target.parentElement.parentElement.parentElement.querySelector('.tit').innerText;
 			let date = target.parentElement.parentElement.parentElement.querySelector('.item_dsc').innerText;
-			//임시 test용 입니다.
-			let email = "skekq123@naver.com";
+			let email = getCookieEmail();
+			
 			document.querySelector('.pop_tit').children[0].innerText = title;
 			document.querySelector('.pop_tit').children[1].innerText = date;
 			
@@ -103,11 +103,18 @@ function initCancelBtn() {
 		popupTarget.style.display = 'none';
 	});
 }
-
+function getCookieEmail() {
+	let cookieValue = document.cookie;
+	let email = "";
+	for(var index = 9; index < cookieValue.length; ++index) {
+		email += cookieValue[index];
+	}
+	return email;
+}
 // DOMContentLoaded 초기 설정
 document.addEventListener('DOMContentLoaded', function () {
-    // 임시로 이메일값 선언 (로그인 구현 후, 로그인 정보를 통해 이메일값을 가져올 예정)
-	let email = "skekq123@naver.com";
+	let email = getCookieEmail();
+	
     requestAjax(initDisplayInfo, 'api/reservations?reservationEmail=' + email);
     
     initCancelBtn();
