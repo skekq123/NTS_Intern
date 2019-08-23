@@ -19,7 +19,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 		}
 
 		for (Cookie cookie : cookies) {
-			System.out.println(cookie.getName());
+		
 			if ("userMail".equals(cookie.getName())) {
 				return true;
 			}
