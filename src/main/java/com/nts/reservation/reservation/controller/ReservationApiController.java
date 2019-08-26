@@ -22,7 +22,7 @@ public class ReservationApiController {
 
 	@RequestMapping(value = "/api/reserve", method = RequestMethod.POST)
 	public boolean reserve(@RequestBody ReservationParam reserveRequest) {
-		return reservationServiceImpl.postReserve(reserveRequest);
+		return reservationServiceImpl.reserveTicket(reserveRequest);
 	}
 
 	@RequestMapping(value = "/api/reservations", method = RequestMethod.GET)
@@ -34,7 +34,7 @@ public class ReservationApiController {
 
 	@RequestMapping(value = "/api/update", method = RequestMethod.POST)
 	public boolean update(@RequestBody ReservationUpdateParam updateParam) {
-		return reservationServiceImpl.updateReserve(updateParam.getReservationInfoId(), updateParam.getReservationEmail());
+		return reservationServiceImpl.calcelReserve(updateParam.getReservationInfoId(), updateParam.getReservationEmail());
 		
 	}
 }

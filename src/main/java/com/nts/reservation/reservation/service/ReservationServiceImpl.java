@@ -21,7 +21,7 @@ public class ReservationServiceImpl implements ReservationService {
 	private DisplayInfoDao displayInfoDao;
 
 	@Override
-	public boolean postReserve(ReservationParam reservationParam) {
+	public boolean reserveTicket(ReservationParam reservationParam) {
 		int reservationInfoId = reservationDao.insertReservation(reservationParam);
 
 		if (reservationInfoId == 0) {
@@ -60,8 +60,7 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public boolean updateReserve(int reservationInfoId, String reservationEmail) {
-		
+	public boolean calcelReserve(int reservationInfoId, String reservationEmail) {
 		return reservationDao.updateReservationCancelFlag(reservationInfoId, reservationEmail) > 0;
 	}
 }
