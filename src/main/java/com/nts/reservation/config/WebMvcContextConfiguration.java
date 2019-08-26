@@ -12,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.nts.reservation.reservation.intercepter.AuthenticationInterceptor;
+import com.nts.reservation.reservation.intercepter.loginInterceptor;
 
 @Configurable
 @EnableWebMvc
@@ -43,9 +44,10 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 		resolver.setSuffix(".jsp");
 		return resolver;
 	}
+
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new AuthenticationInterceptor())
-			.addPathPatterns("/myreservation");
+		registry.addInterceptor(new AuthenticationInterceptor()).addPathPatterns("/myreservation");
+		registry.addInterceptor(new loginInterceptor()).addPathPatterns("/").addPathPatterns("/detail");
 	}
 }
