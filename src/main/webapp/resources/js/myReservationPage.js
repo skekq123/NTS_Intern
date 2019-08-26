@@ -109,11 +109,8 @@ function initCancelBtn() {
 }
 function getCookieEmail() {
 	let cookieValue = document.cookie;
-	let email = "";
-	for(var index = 9; index < cookieValue.length; ++index) {
-		email += cookieValue[index];
-	}
-	return email;
+	let email = cookieValue.split('=');
+	return email[1];
 }
 
 // DOMContentLoaded 초기 설정
