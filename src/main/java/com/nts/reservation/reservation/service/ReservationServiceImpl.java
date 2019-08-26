@@ -58,11 +58,10 @@ public class ReservationServiceImpl implements ReservationService {
 
 		return reservationInfoResponse;
 	}
-	
+
 	@Override
 	public boolean updateReserve(int reservationInfoId, String reservationEmail) {
-		boolean success;
-		success = reservationDao.updateReservation(reservationInfoId, reservationEmail) > 0 ? true :false; 
-		return success;
+		
+		return reservationDao.updateReservationCancelFlag(reservationInfoId, reservationEmail) > 0;
 	}
 }
