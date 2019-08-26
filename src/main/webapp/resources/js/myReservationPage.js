@@ -2,7 +2,7 @@ function initDisplayInfo(response) {
     let reservationData = response["reservations"];
     let titles = document.querySelectorAll('.figure');
     let currentDate = (new Date()).toMysqlFormat();
-
+    
     // 0 : 전체, 1 : 이용예정, 2 : 이용완료, 3 : 취소 및 환불
     let size = response.size;
     let todo = 0;
@@ -13,7 +13,7 @@ function initDisplayInfo(response) {
             let cancelTemplate = document.querySelector('#cancelReservation').innerText;
             let bindcancelTemplate = Handlebars.compile(cancelTemplate);
             let cancelContainer = document.querySelector('li.cancel');
-
+            
             addExtraData(data);
             cancelContainer.innerHTML += bindcancelTemplate(data);
 
@@ -73,28 +73,32 @@ function addExtraData(data) {
 function initCancelBtn() {
 	let popupTarget = document.querySelector('.popup_booking_wrapper');
 	
+	let id;
+	let title;
+	let date;
+	let email;
 	document.querySelector('li.confirmed').addEventListener('click', function (evt) {
 		let target = evt.target;
 		
 		if(target.tagName === 'span') target = target.parentElement;
 		if(target.className === 'btn') {
 			popupTarget.style.display = 'block';
-			let id = target.parentElement.parentElement.parentElement.querySelector('.reserveId').innerText;
-			let title = target.parentElement.parentElement.parentElement.querySelector('.tit').innerText;
-			let date = target.parentElement.parentElement.parentElement.querySelector('.item_dsc').innerText;
-			let email = getCookieEmail();
-			
+			id = target.parentElement.parentElement.parentElement.querySelector('.reserveId').innerText;
+			title = target.parentElement.parentElement.parentElement.querySelector('.tit').innerText;
+			date = target.parentElement.parentElement.parentElement.querySelector('.item_dsc').innerText;
+			email = getCookieEmail();
+		
 			document.querySelector('.pop_tit').children[0].innerText = title;
 			document.querySelector('.pop_tit').children[1].innerText = date;
-			
-			document.querySelector('.btn_green').addEventListener('click', function() {
-				let reserveRequest = JSON.stringify(new ReserveParam(id, email));
-				requestPostAjax('api/update', reserveRequest);
-				location.href = '/reservation/myreservation';
-				popupTarget.style.display = 'none';
-			})
 		}
 	});
+	
+	document.querySelector('.btn_green').addEventListener('click', function() {
+		let reserveRequest = JSON.stringify(new ReserveParam(id, email));
+		requestPostAjax('api/update', reserveRequest);
+		location.href = '/reservation/myreservation';
+		popupTarget.style.display = 'none';
+	})
 	
 	document.querySelector('.popup_btn_close').addEventListener('click', function() {
 		popupTarget.style.display = 'none';
@@ -111,6 +115,7 @@ function getCookieEmail() {
 	}
 	return email;
 }
+
 // DOMContentLoaded 초기 설정
 document.addEventListener('DOMContentLoaded', function () {
 	let email = getCookieEmail();
