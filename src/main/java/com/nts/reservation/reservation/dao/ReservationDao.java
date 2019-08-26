@@ -67,7 +67,7 @@ public class ReservationDao {
 		return jdbc.queryForObject(ReservationDaoSqls.SELECT_TOTAL_PRICE, params, Integer.class);
 	}
 
-	public int updateReservation(int reservationInfoId, String reservationEmail) {
+	public int updateReservationCancelFlag(int reservationInfoId, String reservationEmail) {
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("reservationInfoId", reservationInfoId);
 		params.addValue("reservationEmail", reservationEmail);
