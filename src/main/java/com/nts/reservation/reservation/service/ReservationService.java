@@ -8,5 +8,5 @@ public interface ReservationService {
 	
 	ReservationInfoResponse getReservationInfoResponse(String reservationEmail);
 	
-	boolean calcelReserve(int reservationInfoId, String reservationEmail);
+	boolean cancelReserve(int reservationInfoId, String reservationEmail);
 }	

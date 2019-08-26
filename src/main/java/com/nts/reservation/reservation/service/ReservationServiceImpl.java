@@ -62,7 +62,7 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public boolean calcelReserve(int reservationInfoId, String reservationEmail) {
+	public boolean cancelReserve(int reservationInfoId, String reservationEmail) {
 		return reservationDao.updateReservationCancelFlag(reservationInfoId, reservationEmail) > 0;
 	}
 }

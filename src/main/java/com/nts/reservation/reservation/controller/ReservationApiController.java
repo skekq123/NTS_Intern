@@ -34,7 +34,7 @@ public class ReservationApiController {
 
 	@RequestMapping(value = "/api/update", method = RequestMethod.POST)
 	public boolean update(@RequestBody ReservationUpdateParam updateParam) {
-		return reservationServiceImpl.calcelReserve(updateParam.getReservationInfoId(), updateParam.getReservationEmail());
+		return reservationServiceImpl.cancelReserve(updateParam.getReservationInfoId(), updateParam.getReservationEmail());
 		
 	}
 }
