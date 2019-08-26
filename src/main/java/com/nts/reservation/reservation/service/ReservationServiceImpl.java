@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.displayInfo.dao.DisplayInfoDao;
 import com.nts.reservation.displayInfo.dto.DisplayInfo;
@@ -21,6 +22,7 @@ public class ReservationServiceImpl implements ReservationService {
 	private DisplayInfoDao displayInfoDao;
 
 	@Override
+	@Transactional
 	public boolean reserveTicket(ReservationParam reservationParam) {
 		int reservationInfoId = reservationDao.insertReservation(reservationParam);
 
