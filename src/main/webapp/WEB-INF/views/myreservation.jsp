@@ -222,7 +222,7 @@
 									</em>
 								</div>
 								<div class="booking_cancel">
-									<a href="./reviewWrite.html"><button class="btn">
+									<a href="/reservation/reviewWrite?productId={{productId}}&reservationInfoId={{reservationInfoId}}"><button class="btn">
 											<span>예매자 리뷰 남기기</span>
 										</button></a>
 								</div>
