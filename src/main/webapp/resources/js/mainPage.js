@@ -8,7 +8,7 @@ function loadProductsCallback(responseData) {
     
     items.forEach((items,index) => {
     	containers[index%2].innerHTML += template
-        .replace('{imageUrl}', items.imageUrl)
+        .replace('{imageFileId}', items.imageFileId)
         .replace(/{description}/g, items.description)
         .replace('{id}', items.id)
         .replace('{placeName}', items.placeName)
@@ -67,10 +67,10 @@ function loadPromotionsCallback(responseData) {
 	
 	items.forEach((items) => {
 		promotionList.insertAdjacentHTML('beforeend', template
-		    	.replace(/{productImageUrl}/g, items.productImageUrl));
+		    	.replace(/{imageFileId}/g, items.imageFileId));
     });
 	promotionList.insertAdjacentHTML('beforeend', template
-	    	.replace(/{productImageUrl}/g, items[0].productImageUrl));
+	    	.replace(/{imageFileId}/g, items[0].imageFileId));
 	
     promotionSlideAnimation(promotionList, promotionLength);
 }

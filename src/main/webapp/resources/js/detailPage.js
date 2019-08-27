@@ -22,6 +22,7 @@ function loadDisplayInfoCallback(responseData) {
     let displayInfo = displayInfoResponse["displayInfo"];
     let displayProductImages = displayInfoResponse["productImages"];
 
+    
     let isAddtionalDisplayImage = false;
     let TitleDisplayImage = "";
 // ma 타입의 이미지 정보를 displayInfo에 추가
@@ -31,8 +32,9 @@ function loadDisplayInfoCallback(responseData) {
     let displayProductImageCount = displayProductImages.length;
     if(displayProductImageCount >= TitleSlideImageCount) isAddtionalDisplayImage = true;
     
-    displayInfo.saveFileName = displayProductImages[0].saveFileName;
-    TitleDisplayImage = displayProductImages[0].saveFileName;
+    displayInfo.imageFileId = displayProductImages[0].imageFileId;
+    TitleDisplayImage = displayProductImages[0].imageFileId;
+   
    
 // TitleImage 설정
     initTitleImage(displayInfo);
@@ -40,7 +42,7 @@ function loadDisplayInfoCallback(responseData) {
     
     if(isAddtionalDisplayImage) { // 추가적 사진이 있으면
         let addtionalDisplayInfo = displayInfoResponse["displayInfo"];
-        addtionalDisplayInfo.saveFileName = displayProductImages[1].saveFileName;
+        addtionalDisplayInfo.imageFileId = displayProductImages[1].imageFileId;
         TitleSlide(addtionalDisplayInfo, TitleDisplayImage); 
     }
     
@@ -149,16 +151,16 @@ function initComment(displayCommentInfo, totalComments) {
 
     if(totalComments <= commentViewSize){
         displayCommentInfo.forEach(comment => {
-        	alert(comment.commentImages);
             if(comment.commentImages.length != 0) {
-                comment.saveFileName = comment.commentImages[0].saveFileName;
+                comment.imageFileId = comment.commentImages[0].imageFileId;
             }
+
             commentContainer.innerHTML += bindCommentTemplate(comment);
         });
     } else {
         for(let i = 0; i < commentViewSize; ++i) {
             if(displayCommentInfo[i].commentImages.length != 0) {
-                displayCommentInfo[i].saveFileName = displayCommentInfo[i].commentImages[0].saveFileName;
+                displayCommentInfo[i].imageFileId = displayCommentInfo[i].commentImages[0].imageFileId;
             }
             commentContainer.innerHTML += bindCommentTemplate(displayCommentInfo[i]);
         }

@@ -1,5 +1,7 @@
 package com.nts.reservation.product.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,5 +13,6 @@ public class Product {
 	private String placeName;
 	private String content;
 	private String description;
-	private String imageUrl;
+	private MultipartFile imageFile;
+	private int imageFileId;	
 }

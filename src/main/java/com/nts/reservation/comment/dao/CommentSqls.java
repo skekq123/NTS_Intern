@@ -3,7 +3,7 @@ package com.nts.reservation.comment.dao;
 public class CommentSqls {
 	public static final String SELECT_COMMENT_IMAGES = "SELECT file_info.content_type AS content_type, "
 			+ "file_info.create_date AS create_date, file_info.delete_flag AS delete_flag, "
-			+ "file_info.id AS file_id, file_info.file_name AS file_name, "
+			+ "file_info.id AS image_file_id, file_info.file_name AS file_name, "
 			+ "reservation_user_comment_image.id AS image_id, file_info.modify_date AS modify_date, "
 			+ "reservation_user_comment_image.reservation_info_id AS reservation_info_id, "
 			+ "reservation_user_comment_image.reservation_user_comment_id AS reservation_user_comment_id, "

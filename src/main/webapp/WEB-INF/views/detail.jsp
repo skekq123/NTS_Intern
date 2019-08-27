@@ -204,7 +204,7 @@
     </footer>
     <div id="photoviwer"></div>
     <script type="rv-template" id="bannerImage">
-		<li class="item" style="width: 414px;"> <img alt="{{productDescription}}" class="img_thumb" src="resources/{{saveFileName}}"> <span class="img_bg"></span>
+		<li class="item" style="width: 414px;"> <img alt="{{productDescription}}" class="img_thumb" src="file/img/{{imageFileId}}"> <span class="img_bg"></span>
             <div class="visual_txt">
                 <div class="visual_txt_inn">
                     <h2 class="visual_txt_tit"> <span>{{productDescription}}</span> </h2>
@@ -217,10 +217,10 @@
 		<li class="list_item">
 			<div>
 				<div class="review_area">
-					{{#if commentImages}}
+					{{#if imageFileId}}
                     <div class="review_area">
                         <div class="thumb_area">
-                        	<a href="#" class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src=resources/{{saveFileName}} alt="리뷰이미지"> </a> <span class="img_count">1</span>
+                        	<a href="#" class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src="file/img/{{imageFileId}}" alt="리뷰이미지"> </a> <span class="img_count">1</span>
 						</div>
 					
 					{{else}}<div class="review_area no_img">

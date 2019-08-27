@@ -1,5 +1,7 @@
 package com.nts.reservation.promotion.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,5 +10,6 @@ import lombok.Setter;
 public class Promotion {
 	private int id;
 	private int productId;
-	private String productImageUrl;
+	private int imageFileId;
+	private MultipartFile imageFile;
 }
