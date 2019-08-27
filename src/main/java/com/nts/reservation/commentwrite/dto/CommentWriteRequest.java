@@ -14,7 +14,7 @@ public class CommentWriteRequest {
 	private int productId;
 	private MultipartFile imageFile;
 	private int reservationInfoId;
-	private int fileInfoId;
+	private int imageFileId;
 	private String fileName;
 	private String saveFileName;
 	private String contentType;

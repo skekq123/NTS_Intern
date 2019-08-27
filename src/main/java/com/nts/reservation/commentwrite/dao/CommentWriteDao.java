@@ -25,7 +25,25 @@ public class CommentWriteDao {
 		params.addValue("comment", commentWriteRequest.getComment());
 		params.addValue("score", commentWriteRequest.getScore());
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		jdbc.update(CommentWriteSqls.INSERT_COMMENT, params, keyHolder, new String[] {"ID"});
+		jdbc.update(CommentWriteSqls.INSERT_COMMENT, params, keyHolder, new String[] { "ID" });
 		return keyHolder.getKey().intValue();
+	}
+
+	public int insertFileInfo(CommentWriteRequest commentWriteRequest) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("fileName", commentWriteRequest.getFileName());
+		params.addValue("saveFileName", commentWriteRequest.getSaveFileName());
+		params.addValue("contentType", commentWriteRequest.getContentType());
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		jdbc.update(CommentWriteSqls.INSERT_FILE_INFO, params, keyHolder, new String[] { "ID" });
+		return keyHolder.getKey().intValue();
+	}
+
+	public int insertCommentImage(CommentWriteRequest commentWriteRequest) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("reservationInfoId", commentWriteRequest.getReservationInfoId());
+		params.addValue("reservationUserCommentId", commentWriteRequest.getReservationUserCommentId());
+		params.addValue("fileId", commentWriteRequest.getImageFileId());
+		return jdbc.update(CommentWriteSqls.INSERT_COMMENT_IMAGE, params);
 	}
 }
