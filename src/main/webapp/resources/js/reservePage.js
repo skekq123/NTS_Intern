@@ -77,7 +77,7 @@ function initDisplayInfo(displayInfoData) {
     // ma 타입의 이미지 정보를 추가
     displayProductImages.forEach(image => {
         if (image.type === 'ma') {
-            document.querySelector('li.item > img').setAttribute('src', "resources/" + image.saveFileName);
+            document.querySelector('li.item > img').setAttribute('src', "file/img/" + image.imageFileId);
         }
     });
 
