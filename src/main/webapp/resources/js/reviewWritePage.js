@@ -118,16 +118,37 @@ function initSubmitBtn() {
         writeForm.append('comment', targetText.value.substr(0, MAX_COMMENT_LENGTH));
         writeForm.append('score', parseInt(targetScore.innerText));
         writeForm.append('productId', getUrlParameter('productId'));
-        writeForm.append('reservationInfoId', getUrlParameter('reservationInfoId'));
-
+        writeForm.append('reservationInfoId', reservationUrlParameter('reservationInfoId'));
+        
         if (targetImageInput.files.length > 0) {
             writeForm.append('imageFile', targetImageInput.files[0]);
         }
-
-        requestPostAjax('/api/commentWrite', writeForm);
+        requestReviewPostAjax('api/commentWrite', writeForm);
         alert("리뷰가 등록되었습니다.");
 		location.href = "/reservation/myreservation";
     });
+}
+//Rest API로  url을 서버로 json 데이터 넘김 (POST)
+function requestReviewPostAjax(url, param) {
+	let ajaxReq = new XMLHttpRequest();
+	
+	ajaxReq.open('POST', url);
+	ajaxReq.responseType = 'json';
+	ajaxReq.send(param);
+}
+//Url의 name에  해당하는 Parameter 추출
+function reservationUrlParameter(name) {
+    let params = location.href.split('?')[1].split('&');
+    for (let i = 0; i < params.length; i++) {
+        let paramSplited = params[i].split('=');
+        let paramName = paramSplited[0];
+        let paramValue = paramSplited[1];
+        paramValue = paramValue.split('#')[0];
+
+        if (paramName === name) {
+            return paramValue;
+        }
+    }
 }
 document.addEventListener('DOMContentLoaded', function () {
     requestAjax(initDisplay, 'api/displayInfo/' + getUrlParameter('productId'));
