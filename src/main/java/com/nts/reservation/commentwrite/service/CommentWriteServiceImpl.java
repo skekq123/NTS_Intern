@@ -18,7 +18,6 @@ import com.nts.reservation.commentwrite.dto.CommentWriteRequest;
 @Service
 public class CommentWriteServiceImpl implements CommentWriteService {
 	private static final String BASE_PATH = File.separator + "tmp" + File.separator;
-	private static final String ROOT_DIR_COMMNET_IMAGE = "c:/tmp/img_comment/";
 	private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("MMddHHmmss");
 
 	@Autowired
@@ -33,7 +32,6 @@ public class CommentWriteServiceImpl implements CommentWriteService {
 		MultipartFile imageFile = commentWriteRequest.getImageFile();
 		if (imageFile != null) {
 			String fileName = DATE_FORMATTER.format(new Date()) + imageFile.getOriginalFilename();
-			String fileDir = ROOT_DIR_COMMNET_IMAGE + fileName;
 
 			// MultipartFile 정보를 String으로 저장
 			commentWriteRequest.setFileName(fileName);
