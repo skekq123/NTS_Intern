@@ -11,7 +11,6 @@ import com.nts.reservation.comment.dto.Comment;
 import com.nts.reservation.comment.service.CommentService;
 
 @RestController
-@RequestMapping("/api/comments")
 public class CommentApiController {
 	private CommentService commentServiceImpl;
 	
@@ -19,9 +18,14 @@ public class CommentApiController {
 		this.commentServiceImpl = commentServiceImpl;
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "/api/comments", method = RequestMethod.GET)
 	public List<Comment> getProduct(
 			@RequestParam(name = "id", required = false, defaultValue = "0") int displayInfoId) {
 		return commentServiceImpl.getComments(displayInfoId);
+	}
+	@RequestMapping(value = "/api/comment", method = RequestMethod.GET)
+	public List<Comment> getComment(
+			@RequestParam(name = "id", required = false, defaultValue = "0") int displayInfoId) {
+		return commentServiceImpl.getComment(displayInfoId);
 	}
 }

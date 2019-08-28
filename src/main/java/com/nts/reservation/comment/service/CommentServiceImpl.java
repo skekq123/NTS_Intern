@@ -22,4 +22,13 @@ public class CommentServiceImpl implements CommentService {
 		});
 		return comment;
 	}
+	
+	@Override
+	public List<Comment> getComment(int displayInfoId) {
+		List<Comment> comment = commentDao.selectComments(displayInfoId);
+		comment.forEach(commentItem -> {
+			commentItem.setCommentImages(commentDao.selectCommentImage(commentItem.getCommentId()));
+		});
+		return comment;
+	}
 }

@@ -10,7 +10,7 @@ function loadDisplayInfoCallback(displayInfoData) {
     document.querySelector('.btn_back').setAttribute('href','detail?id=' + displayInfoId);
 
     // Comment 설정
-    requestAjax(loadCommentInfoCallback, 'api/comments?id=' + getUrlParameter('id'));  
+    requestAjax(loadCommentInfoCallback, 'api/comment?id=' + getUrlParameter('id'));  
 }
 
 function loadCommentInfoCallback(commentsData) {

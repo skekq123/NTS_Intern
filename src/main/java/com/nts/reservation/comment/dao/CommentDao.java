@@ -32,5 +32,9 @@ public class CommentDao {
 		return jdbc.query(CommentSqls.SELECT_COMMENT_IMAGES, Collections.singletonMap("commentId", commentId),
 				rowMapperCommentImage);
 	}
-
+	
+	public List<CommentImage> selectCommentImage(int commentId) {
+		return jdbc.query(CommentSqls.SELECT_COMMENT_IMAGE, Collections.singletonMap("commentId", commentId),
+				rowMapperCommentImage);
+	}
 }
